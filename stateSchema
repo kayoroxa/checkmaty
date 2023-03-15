@@ -1,0 +1,20 @@
+State de Usuário:
+
+Crie um arquivo user.js na pasta pages/api para gerenciar as requisições relacionadas ao usuário.
+Utilize o useQuery do React Query para buscar as informações do usuário a partir do seu id.
+Utilize o useMutation do React Query para realizar as operações de criar, atualizar e deletar usuários.
+State de Tarefas:
+
+Crie um arquivo tasks.js na pasta pages/api para gerenciar as requisições relacionadas às tarefas.
+Utilize o useQuery do React Query para buscar as informações das tarefas a partir do id do usuário e, opcionalmente, do id do projeto ou das tags associadas.
+Utilize o useMutation do React Query para realizar as operações de criar, atualizar e deletar tarefas.
+State de Projetos:
+
+Crie um arquivo projects.js na pasta pages/api para gerenciar as requisições relacionadas aos projetos.
+Utilize o useQuery do React Query para buscar as informações dos projetos a partir do id do usuário.
+Utilize o useMutation do React Query para realizar as operações de criar, atualizar e deletar projetos.
+State de Tags:
+
+Crie um arquivo tags.js na pasta pages/api para gerenciar as requisições relacionadas às tags.
+Utilize o useQuery do React Query para buscar as informações das tags a partir do id do usuário.
+Utilize o useMutation do React Query para realizar as operações de criar, atualizar e deletar tags.

@@ -1,0 +1,42 @@
+Coleção de Usuários:
+
+id: string (gerado automaticamente pelo FaunaDB)
+name: string
+email: string
+password: string (criptografada)
+createdAt: timestamp
+updatedAt: timestamp
+
+
+Coleção de Tarefas:
+
+id: string (gerado automaticamente pelo FaunaDB)
+title: string
+description: string
+priority: string (alta, média, baixa)
+status: string (a fazer, em andamento, concluída)
+dueDate: timestamp
+createdAt: timestamp
+updatedAt: timestamp
+userId: string (referência ao usuário que criou a tarefa)
+
+
+Coleção de Projetos:
+
+id: string (gerado automaticamente pelo FaunaDB)
+name: string
+description: string
+color: string
+createdAt: timestamp
+updatedAt: timestamp
+userId: string (referência ao usuário que criou o projeto)
+
+
+Coleção de Tags:
+
+id: string (gerado automaticamente pelo FaunaDB)
+name: string
+color: string
+createdAt: timestamp
+updatedAt: timestamp
+userId: string (referência ao usuário que criou a tag)

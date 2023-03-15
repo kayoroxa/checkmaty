@@ -1,0 +1,24 @@
+  PAGINA INICIAL:
+Tarefas dueDate == data de hoje  ||
+Tarefas atributo "mainView" == true
+
+
+  Quando tag for apagada:
+Pega index "tasks_by_tag" e tira todas as tags relacionada
+
+
+  Duvidas:
+- Id vs Ref
+
+
+  Task:
+- tasks inicias:
+  hasPprojetoID||mainView = true
+  hasPparentID = false
+
+- taks nested:
+  hasProjetoID||mainView = false
+  hasParentID = true
+
+
+
