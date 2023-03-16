@@ -1,10 +1,23 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
+import { useQuery } from 'react-query'
 import TodoItem from '../components/todo'
+
+const options = {
+  method: 'GET',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ userId: '359051936857588309' }),
+}
 
 const Home: NextPage = () => {
   const todo = { id: 1, text: 'Buy milk' }
+  const { isLoading, error, data } = useQuery(['tasks'], () =>
+    fetch('http://localhost:3000/api/tasks', options).then(res => res.json())
+  )
+
+  console.log(data)
+
   return (
     <div className="flex min-h-screen flex-col items-center justify-center py-2">
       <Head>

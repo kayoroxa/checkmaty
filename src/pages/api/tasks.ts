@@ -43,6 +43,8 @@ export default async function handler(
 }
 
 async function getTasks(req: NextApiRequest, res: NextApiResponse) {
+  res.status(500).json({ hello: 'man' })
+  return
   try {
     const response: any = await faunaClient.query(
       q.Map(
