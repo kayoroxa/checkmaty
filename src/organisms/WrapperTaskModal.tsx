@@ -3,14 +3,11 @@ import { FaWindowClose } from 'react-icons/fa'
 import { RiNumbersFill } from 'react-icons/ri'
 import Modal from 'react-modal'
 import Group from '../atoms/Group'
-import { Task } from '../utils/types/_Task'
 
 interface Props {
   children: React.ReactNode
   isOpen: boolean
   onRequestClose: () => void
-  task: Task
-  subtasks: Task[]
 }
 
 export default function WrapperTaskModal({
