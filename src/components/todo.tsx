@@ -20,7 +20,7 @@ const TodoItem = ({
 
   return (
     <div
-      className="flex items-start  hover:bg-blue-50 px-4 dark:hover:bg-slate-700/80  w-[400px] rounded-2xl dark:bg-slate-700/50 relative ml-6 hover:cursor-pointer"
+      className="flex items-start  hover:bg-blue-50 px-4 dark:hover:bg-slate-700  w-[400px] rounded-2xl dark:bg-slate-700/80 relative ml-6 hover:cursor-pointer"
       onClick={onClick}
     >
       <section className="h-full flex items-center">

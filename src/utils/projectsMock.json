@@ -1,0 +1,23 @@
+[
+  {
+    "id": "1",
+    "imgUrl": "https://s3-symbol-logo.tradingview.com/amazon--600.png",
+    "name": "Amazon",
+    "cover": "data:image/png;base64,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",
+    "percent": 0.5
+  },
+  {
+    "id": "2",
+    "imgUrl": "https://www.nike.com.br/images/meta/open-graph-main-image.jpg",
+    "name": "Nike",
+    "cover": "https://www.snkrempire.com/wp-content/uploads/2020/03/NIKE_BANNER.png",
+    "percent": 0.8
+  },
+  {
+    "id": "3",
+    "imgUrl": "https://img.icons8.com/color/512/google-logo.png",
+    "name": "Google",
+    "cover": "https://img.freepik.com/premium-photo/google-logo-banner-3d-render_68185-754.jpg",
+    "percent": 0.4
+  }
+]
