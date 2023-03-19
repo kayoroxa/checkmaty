@@ -1,21 +1,21 @@
 export interface Task {
-  id: string //(gerado automaticamente pelo FaunaDB)
+  id?: string //(gerado automaticamente pelo FaunaDB)
   title: string
   description: string
 
-  relevance: number
-  simplicity: number
-  urgency: number
+  relevance?: number
+  simplicity?: number
+  urgency?: number
 
-  done: boolean
+  done?: boolean
 
-  dueDate: string //timestamp
-  createdAt: string //timestamp
-  updatedAt: string //timestamp
+  dueDate?: string //timestamp
+  createdAt?: string //timestamp
+  updatedAt?: string //timestamp
 
-  tags: string[]
+  tags?: string[]
 
-  userId: string //(referência ao usuário que criou a tarefa)
+  userId?: string //(referência ao usuário que criou a tarefa)
 
   mainView?: boolean
   parentId?: string

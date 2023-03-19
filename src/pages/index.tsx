@@ -1,4 +1,5 @@
 import type { NextPage } from 'next'
+import { useTasks } from '../hooks/useTasks'
 import DashBoard from '../template/DashBoard'
 
 const options = {
@@ -15,7 +16,13 @@ const Home: NextPage = () => {
 
   // console.log(data)
 
-  return <DashBoard />
+  // const { data: todos, isLoading, error } = useQuery('todos', fetchTodos)
+  const data = useTasks('359051936857588309')
+  return (
+    <>
+      <DashBoard data={data} />
+    </>
+  )
 }
 
 export default Home

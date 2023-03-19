@@ -42,13 +42,104 @@ export default async function handler(
   }
 }
 
+const fake = [
+  {
+    id: '359057760473580117',
+    title: 'comprar bolacha',
+    description: 'lá em lito',
+    priority: 10,
+    simplicity: 5,
+    done: true,
+    userId: '359051936857588309',
+    inMainView: true,
+    tags: [
+      {
+        '@ref': {
+          id: '359147022097318485',
+          collection: {
+            '@ref': {
+              id: 'tags',
+              collection: {
+                '@ref': {
+                  id: 'collections',
+                },
+              },
+            },
+          },
+        },
+      },
+    ],
+  },
+  {
+    id: '359058595390685773',
+    title: 'comprar pão 🍞',
+    description: 'lá em thiago',
+    priority: 10,
+    simplicity: 5,
+    done: true,
+    inMainView: true,
+    userId: '359051936857588309',
+    tagsId: ['359147022097318485'],
+  },
+  {
+    id: '359062420607468117',
+    title: 'comprar abacaixi',
+    description: 'lá em thiago',
+    priority: 10,
+    simplicity: 5,
+    done: true,
+    inMainView: true,
+    userId: '359051936857588309',
+  },
+  {
+    id: '359496038749307469',
+    title: 'fazer script do primo',
+    description: '🐪',
+    priority: 10,
+    simplicity: 5,
+    done: true,
+    inMainView: true,
+    userId: '359051936857588309',
+  },
+]
+
 async function getTasks(req: NextApiRequest, res: NextApiResponse) {
-  res.status(500).json({ hello: 'man' })
+  res.status(200).json({ data: fake })
   return
+  // fake delay
+  // await new Promise(resolve => setTimeout(resolve, 1000))
+
+  // res.status(200).json({ hello: 'man2' })
+  // return
+
+  const { inMainView } = req.query
+  if (inMainView === 'true') {
+    const response: any = await faunaClient.query(
+      q.Map(
+        q.Paginate(q.Match(q.Index('tasks_by_inMainView'), true)),
+        q.Lambda('x', q.Get(q.Var('x')))
+      )
+    )
+
+    const tasks = response.data.map((task: any) => ({
+      id: task.ref.id,
+      ...task.data,
+    }))
+    res.status(200).json({ data: tasks })
+    return
+  }
+
+  //get id by query url
+  const { userId } = req.query
+  if (typeof userId !== 'string') {
+    res.status(500).json({ error: 'Need User ID' })
+    return
+  }
+
   try {
     const response: any = await faunaClient.query(
       q.Map(
-        q.Paginate(q.Match(q.Index('tasks_by_user_id'), req.body.userId)),
+        q.Paginate(q.Match(q.Index('tasks_by_user_id'), userId)),
         q.Lambda('X', q.Get(q.Var('X')))
       )
     )

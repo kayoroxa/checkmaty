@@ -3,7 +3,8 @@ import { axiosApi } from '../utils/axiosApi'
 import { Task } from '../utils/types/_Task'
 
 export const useTasks = (userId: string) => {
-  const tasksUrl = `/api/tasks?userId=${userId}`
+  const tasksUrl = `/api/tasks?inMainView=true`
+  // const tasksUrl = `/api/tasks`
 
   const {
     data: tasks,
@@ -17,6 +18,7 @@ export const useTasks = (userId: string) => {
       return data
     },
     {
+      staleTime: 1000 * 60 * 2,
       enabled: !!userId,
     }
   )
