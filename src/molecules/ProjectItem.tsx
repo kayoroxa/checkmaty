@@ -11,7 +11,7 @@ export default function ProjectItem({
 }) {
   return (
     <Link href={'/project/' + name.toLowerCase()}>
-      <div className="w-[250px] bg-slate-700/50 p-6 flex flex-col gap-4  rounded-lg overflow-hidden">
+      <div className="w-[250px] bg-slate-700/50 p-6 flex flex-col gap-4  rounded-lg overflow-hidden hover:bg-blue-50 px-4 dark:hover:bg-slate-700/80">
         <header className="flex gap-5">
           <div className="w-[60px] h-[60px] rounded-xl overflow-hidden">
             <img

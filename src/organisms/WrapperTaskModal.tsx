@@ -29,7 +29,7 @@ export default function WrapperTaskModal({
           onClick={() => onRequestClose()}
         />
       </header>
-      <main className="border-t border-slate-500 flex gap-2 flex-1 max-h-[90vh]">
+      <main className="border-t border-slate-500 flex flex-1 max-h-[90vh]">
         <section className="pt-5 pb-24 px-10 overflow-auto max-h-full">
           {children}
         </section>
