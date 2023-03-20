@@ -43,25 +43,70 @@ export default async function handler(
 }
 
 async function getProjects(req: NextApiRequest, res: NextApiResponse) {
-  try {
-    const projects = await faunaClient.query(
-      q.Paginate(q.Match(q.Index('projects_by_user_id'), req.query.userId))
-    )
-    res.status(200).json({ data: projects })
-  } catch (error) {
-    console.error(error)
-    res.status(500).json({ error: 'Something went wrong' })
+  const { userId, id } = req.query
+  if (userId) {
+    try {
+      const projects = await faunaClient.query(
+        q.Paginate(q.Match(q.Index('projects_by_accessUserIds'), userId))
+      )
+      res.status(200).json({ data: projects })
+    } catch (error) {
+      console.error(error)
+      res.status(500).json({ error: 'Something went wrong' })
+    }
+    return
   }
+  if (id) {
+    try {
+      const project = await faunaClient.query(
+        q.Get(q.Ref(q.Collection('projects'), id))
+      )
+      res.status(200).json({ data: project })
+    } catch (error) {
+      console.error(error)
+      res.status(500).json({ error: 'Something went wrong' })
+    }
+    return
+  }
+
+  res.status(400).json({ error: 'userId or id is required' })
 }
 
 async function createProject(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const { name, userId } = req.body
+    const {
+      name,
+      description,
+      coverImg,
+      imgUrl,
+      createdByUserId,
+      accessUserIds,
+    } = req.body
+
+    if (
+      !name ||
+      !createdByUserId ||
+      !accessUserIds ||
+      !Array.isArray(accessUserIds)
+    ) {
+      return res.status(400).json({ message: 'Dados do projeto inválidos' })
+    }
+
+    const projectData = {
+      name,
+      description: description || '',
+      coverImg: coverImg || '',
+      imgUrl: imgUrl || '',
+      createdByUserId,
+      accessUserIds,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    }
+
     const project = await faunaClient.query(
-      q.Create(q.Collection('projects'), {
-        data: { name, userId },
-      })
+      q.Create(q.Collection('projects'), { data: projectData })
     )
+
     res.status(201).json({ data: project })
   } catch (error) {
     console.error(error)
@@ -86,7 +131,7 @@ async function updateProject(req: NextApiRequest, res: NextApiResponse) {
 
 async function deleteProject(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const { id } = req.body
+    const { id } = req.query
     await faunaClient.query(q.Delete(q.Ref(q.Collection('projects'), id)))
     res.status(204).end()
   } catch (error) {

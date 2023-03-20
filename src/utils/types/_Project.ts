@@ -4,8 +4,10 @@ export interface Project {
   description: string
 
   coverImg: string
+  imgUrl: string
 
   createdAt: string
   updatedAt: string
-  userId: string
+  createdByUserId: string
+  accessUserIds: string[]
 }
