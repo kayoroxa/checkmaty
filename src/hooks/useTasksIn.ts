@@ -2,8 +2,19 @@ import { useMutation, useQuery } from 'react-query'
 import { axiosApi } from '../utils/axiosApi'
 import { Task } from '../utils/types/_Task'
 
-export const useTasks = (userId: string) => {
-  const tasksUrl = `/tasks?inMainView=true`
+type Filter = {
+  userId?: string
+  inMainView?: boolean
+  projectId?: string
+  tagId?: string
+}
+
+export const useTasksIn = (userId: string, filter: Filter) => {
+  const queryParams = Object.entries(filter)
+    .map(([key, value]) => `${key}=${value}`)
+    .join('&')
+
+  const tasksUrl = `/tasks?${queryParams}`
   // const tasksUrl = `/api/tasks`
 
   const {
@@ -12,7 +23,7 @@ export const useTasks = (userId: string) => {
     isError: isTasksError,
     error: tasksError,
   } = useQuery<Task[]>(
-    'tasks',
+    ['tasks', queryParams],
     async () => {
       const { data } = await axiosApi.get<Task[]>(tasksUrl)
       return data

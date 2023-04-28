@@ -15,9 +15,10 @@ interface Props {
 
 function TaskModal({ task, subtasks, ...wrapperProps }: Props) {
   // const [isOpen, setIsOpen] = useState(initialIsOpen)
-
+  if (!task) return null
+  const props = { task, ...wrapperProps }
   return (
-    <WrapperTaskModal {...wrapperProps}>
+    <WrapperTaskModal {...props}>
       <header className="flex items-center justify-start ml-6 gap-2">
         <section>
           <DoneButton done={false} />

@@ -4,41 +4,53 @@ import TodoItem from '../components/todo'
 import ProjectItem from '../molecules/ProjectItem'
 import TaskModal from '../organisms/TaskModal'
 import WrapperApp from '../organisms/WrapperApp'
-import projectsData from '../utils/projectsMock.json'
+import { Project } from '../utils/types/_Project'
 import { Task } from '../utils/types/_Task'
 
-export default function DashBoard({ data }: { data: any }) {
-  const todo = {
-    id: 1,
-    text: 'Buy milk',
-    description: 'Buy milk in restaurant',
-  }
-  const todo2 = {
-    id: 1,
-    text: 'Buy milk',
-  }
+export default function DashBoard({
+  data,
+  projectsData,
+  isLoading,
+}: {
+  data: any
+  projectsData: Project[]
+  isLoading: boolean
+}) {
+  // const todo = {
+  //   id: 1,
+  //   text: 'Buy milk',
+  //   description: 'Buy milk in restaurant',
+  // }
+  // const todo2 = {
+  //   id: 1,
+  //   text: 'Buy milk',
+  // }
   const [modalIsOpen, setModalIsOpen] = useState<number | false>(false)
+  // return <div>{JSON.stringify(projectsData)}</div>
   return (
     <>
       <WrapperApp>
-        {/* {JSON.stringify(data.tasks)} */}
-        {data.isTasksLoading && <p>Loading...</p>}
+        {(data.isTasksLoading || isLoading) && <p>Loading...</p>}
         {data.isTasksError && <p>{data.error}</p>}
+
+        {projectsData?.[0] && (
+          <Container title="Projects:" flex={true}>
+            {projectsData?.map((project: any, i: number) => (
+              <ProjectItem
+                key={i}
+                id={project.id}
+                imgUrl={project.imgUrl}
+                name={project.name}
+                percent={project.percent}
+              />
+            ))}
+          </Container>
+        )}
+
         {data.tasks && (
           <>
-            <Container title="Projects:" flex={true}>
-              {projectsData.map((project: any, i: number) => (
-                <ProjectItem
-                  key={i}
-                  id={project.id}
-                  imgUrl={project.imgUrl}
-                  name={project.name}
-                  percent={project.percent}
-                />
-              ))}
-            </Container>
             <Container title="Todo:">
-              {data.tasks.data.map((todo: Task, i: number) => (
+              {data.tasks.map((todo: Task, i: number) => (
                 <TodoItem
                   key={i}
                   todo={todo}
@@ -72,10 +84,10 @@ export default function DashBoard({ data }: { data: any }) {
           }}
           task={
             typeof modalIsOpen === 'number'
-              ? data.tasks.data[modalIsOpen]
-              : data.tasks.data[0]
+              ? data.tasks[modalIsOpen]
+              : data.tasks[0]
           }
-          subtasks={data.tasks.data}
+          subtasks={data.tasks}
         />
       )}
     </>

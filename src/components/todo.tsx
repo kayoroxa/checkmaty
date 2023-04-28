@@ -6,12 +6,14 @@ const TodoItem = ({
   todo,
   onToggle,
   onClick,
+  initialDone = false,
 }: {
   todo: Task
   onToggle: any
   onClick?: () => void
+  initialDone?: boolean
 }) => {
-  const [done, setDone] = useState(false)
+  const [done, setDone] = useState(initialDone)
 
   const handleToggle = () => {
     setDone(!done)

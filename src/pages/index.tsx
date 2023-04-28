@@ -1,4 +1,5 @@
 import type { NextPage } from 'next'
+import { useProjects } from '../hooks/useProjects'
 import { useTasks } from '../hooks/useTasks'
 import DashBoard from '../template/DashBoard'
 
@@ -18,9 +19,15 @@ const Home: NextPage = () => {
 
   // const { data: todos, isLoading, error } = useQuery('todos', fetchTodos)
   const data = useTasks('359051936857588309')
+  const { projects, isProjectsLoading } = useProjects('359051936857588309')
+
   return (
     <>
-      <DashBoard data={data} />
+      <DashBoard
+        data={data}
+        projectsData={projects}
+        isLoading={isProjectsLoading}
+      />
     </>
   )
 }

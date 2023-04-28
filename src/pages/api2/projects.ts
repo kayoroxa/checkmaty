@@ -46,21 +46,35 @@ async function getProjects(req: NextApiRequest, res: NextApiResponse) {
   const { userId, id } = req.query
   if (userId) {
     try {
-      const projects = await faunaClient.query(
-        q.Paginate(q.Match(q.Index('projects_by_accessUserIds'), userId))
+      const response: any = await faunaClient.query(
+        q.Map(
+          q.Paginate(q.Match(q.Index('projects_by_accessUserIds'), userId)),
+          q.Lambda('x', q.Get(q.Var('x')))
+        )
       )
+
+      const projects = response.data.map((project: any) => ({
+        id: project.ref.id,
+        ...project.data,
+      }))
+
       res.status(200).json({ data: projects })
     } catch (error) {
       console.error(error)
       res.status(500).json({ error: 'Something went wrong' })
     }
     return
-  }
-  if (id) {
+  } else if (id) {
     try {
-      const project = await faunaClient.query(
+      const response: any = await faunaClient.query(
         q.Get(q.Ref(q.Collection('projects'), id))
       )
+
+      const project = response.data.map((project: any) => ({
+        id: project.ref.id,
+        ...project.data,
+      }))
+
       res.status(200).json({ data: project })
     } catch (error) {
       console.error(error)
