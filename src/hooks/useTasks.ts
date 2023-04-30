@@ -1,4 +1,5 @@
 import { useMutation, useQuery } from 'react-query'
+import { queryClient } from '../pages/_app'
 import { axiosApi } from '../utils/axiosApi'
 import { Task } from '../utils/types/_Task'
 
@@ -15,6 +16,7 @@ export const useTasks = (userId: string) => {
     'tasks',
     async () => {
       const { data } = await axiosApi.get<Task[]>(tasksUrl)
+      debugger
       return data
     },
     {
@@ -30,7 +32,7 @@ export const useTasks = (userId: string) => {
     error: createTaskError,
   } = useMutation(
     async (newTask: Task) => {
-      const { data } = await axiosApi.post<Task>('/api/tasks', newTask)
+      const { data } = await axiosApi.post<Task>('/tasks', newTask)
       return data
     },
     {
@@ -41,26 +43,25 @@ export const useTasks = (userId: string) => {
     }
   )
 
+  async function fetchUpdate(props: {
+    id: string
+    updatedTask: Partial<Task>
+  }) {
+    const { id, updatedTask } = props
+    const { data } = await axiosApi.patch<Task>(`/tasks/${id}`, updatedTask)
+    return data
+  }
+
   const {
     mutate: updateTask,
     isLoading: isUpdateTaskLoading,
     isError: isUpdateTaskError,
     error: updateTaskError,
-  } = useMutation(
-    async (updatedTask: Task) => {
-      const { data } = await axiosApi.put<Task>(
-        `/api/tasks/${updatedTask.id}`,
-        updatedTask
-      )
-      return data
+  } = useMutation(fetchUpdate, {
+    onSuccess: () => {
+      queryClient.invalidateQueries('tasks')
     },
-    {
-      onSuccess: data => {
-        // This function is called if the mutation is successful
-        // You can do things like updating your cache here
-      },
-    }
-  )
+  })
 
   const {
     mutate: deleteTask,

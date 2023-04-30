@@ -12,8 +12,11 @@ export default function SideBar() {
       <Link href="/" className="dark:hover:bg-slate-700/80 px-5 py-2">
         projects
       </Link>
-      <Link href="/" className="dark:hover:bg-slate-700/80 px-5 py-2">
+      <Link href="/settings" className="dark:hover:bg-slate-700/80 px-5 py-2">
         settings
+      </Link>
+      <Link href="/note" className="dark:hover:bg-slate-700/80 px-5 py-2">
+        note
       </Link>
     </div>
   )

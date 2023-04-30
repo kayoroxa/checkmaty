@@ -1,5 +1,5 @@
 export interface Task {
-  id?: string //(gerado automaticamente pelo FaunaDB)
+  id: string //(gerado automaticamente pelo FaunaDB)
   title: string
   description: string
 

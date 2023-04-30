@@ -50,28 +50,28 @@ export default function DashBoard({
         {data.tasks && (
           <>
             <Container title="Todo:">
-              {data.tasks.map((todo: Task, i: number) => (
-                <TodoItem
-                  key={i}
-                  todo={todo}
-                  onToggle={() => {}}
-                  onClick={() => setModalIsOpen(i)}
-                />
-              ))}
+              {data.tasks
+                .filter((t: Task) => !t.done)
+                .map((todo: Task, i: number) => (
+                  <TodoItem
+                    key={i}
+                    todo={todo}
+                    onToggle={() => {}}
+                    onClick={() => setModalIsOpen(i)}
+                  />
+                ))}
             </Container>
             <Container title="Done Today:">
-              {Array.from(Array(3).keys()).map((_, i) => (
-                <TodoItem
-                  key={i}
-                  todo={{
-                    title: 'test - gravar video',
-                    description: 'hello',
-                    id: 'asd',
-                  }}
-                  onToggle={() => {}}
-                  onClick={() => setModalIsOpen(i)}
-                />
-              ))}
+              {data.tasks
+                .filter((t: Task) => t.done)
+                .map((todo: Task, i: number) => (
+                  <TodoItem
+                    key={i}
+                    todo={todo}
+                    onToggle={() => {}}
+                    onClick={() => setModalIsOpen(i)}
+                  />
+                ))}
             </Container>
           </>
         )}

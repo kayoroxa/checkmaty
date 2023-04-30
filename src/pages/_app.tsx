@@ -3,11 +3,11 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
 import '../styles/globals.css'
 
-const newQueryClient = new QueryClient()
+export const queryClient = new QueryClient()
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <QueryClientProvider client={newQueryClient}>
+    <QueryClientProvider client={queryClient}>
       <Component {...pageProps} />
       <ReactQueryDevtools />
     </QueryClientProvider>

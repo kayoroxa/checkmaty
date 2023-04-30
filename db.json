@@ -1,4 +1,10 @@
 {
+  "notes": [
+    {
+      "id": 1,
+      "text": "Caio"
+    }
+  ],
   "tasks": [
     {
       "id": 1,
@@ -20,27 +26,32 @@
       "done": true,
       "inMainView": true,
       "userId": "359051936857588309",
-      "tagsId": ["359147022097318485"]
+      "tagsId": [
+        "359147022097318485"
+      ]
     },
     {
+      "id": 3,
       "title": "comprar abacaixi",
       "description": "lá em thiago",
       "relevance": 10,
       "simplicity": 5,
-      "done": true,
+      "done": false,
       "inMainView": true,
       "userId": "359051936857588309"
     },
     {
+      "id": 4,
       "title": "fazer script do primo",
       "description": "🐪",
       "relevance": 10,
       "simplicity": 5,
-      "done": true,
+      "done": false,
       "inMainView": true,
       "userId": "359051936857588309"
     },
     {
+      "id": 5,
       "title": "gravar video pattern",
       "description": "🐪",
       "relevance": 10,
@@ -69,7 +80,10 @@
       "coverImg": "https://www.snkrempire.com/wp-content/uploads/2020/03/NIKE_BANNER.png",
       "imgUrl": "https://www.nike.com.br/images/meta/open-graph-main-image.jpg",
       "createdByUserId": "359051936857588309",
-      "accessUserIds": ["359051936857588309", "359680636566372943"],
+      "accessUserIds": [
+        "359051936857588309",
+        "359680636566372943"
+      ],
       "userId": "359051936857588309",
       "percent": 0.2
     },
@@ -80,7 +94,9 @@
       "coverImg": "https://img.freepik.com/premium-photo/google-logo-banner-3d-render_68185-754.jpg",
       "imgUrl": "https://img.icons8.com/color/512/google-logo.png",
       "createdByUserId": "359051936857588309",
-      "accessUserIds": ["359051936857588309"],
+      "accessUserIds": [
+        "359051936857588309"
+      ],
       "userId": "359051936857588309",
       "percent": 0.5
     },
@@ -91,7 +107,9 @@
       "coverImg": "https://static.vecteezy.com/ti/fotos-gratis/p2/1312759-cenario-de-montanha-gelada-gratis-foto.jpeg",
       "imgUrl": "https://cdn-icons-png.flaticon.com/512/4404/4404094.png",
       "createdByUserId": "359051936857588309",
-      "accessUserIds": ["359051936857588309"],
+      "accessUserIds": [
+        "359051936857588309"
+      ],
       "createdAt": "2023-03-20T05:40:01.509Z",
       "updatedAt": "2023-03-20T05:40:01.509Z",
       "userId": "359051936857588309",
