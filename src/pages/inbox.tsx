@@ -9,7 +9,6 @@ export default function Inbox() {
 
   return (
     <>
-      {JSON.stringify(data)}
       <DashBoard data={data} isLoading={data.isTasksLoading} />
     </>
   )
