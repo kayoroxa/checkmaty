@@ -13,20 +13,11 @@ export default function DashBoard({
   isLoading,
 }: {
   data: any
-  projectsData: Project[]
+  projectsData?: Project[]
   isLoading: boolean
 }) {
-  // const todo = {
-  //   id: 1,
-  //   text: 'Buy milk',
-  //   description: 'Buy milk in restaurant',
-  // }
-  // const todo2 = {
-  //   id: 1,
-  //   text: 'Buy milk',
-  // }
   const [modalIsOpen, setModalIsOpen] = useState<number | false>(false)
-  // return <div>{JSON.stringify(projectsData)}</div>
+
   return (
     <>
       <WrapperApp>
@@ -53,43 +44,20 @@ export default function DashBoard({
               {data.tasks
                 .filter((t: Task) => !t.done)
                 .map((todo: Task, i: number) => (
-                  <TodoItem
-                    key={i}
-                    todo={todo}
-                    onToggle={() => {}}
-                    onClick={() => setModalIsOpen(i)}
-                  />
+                  <TodoItem key={i} todo={todo} onToggle={() => {}} />
                 ))}
             </Container>
             <Container title="Done Today:">
               {data.tasks
                 .filter((t: Task) => t.done)
                 .map((todo: Task, i: number) => (
-                  <TodoItem
-                    key={i}
-                    todo={todo}
-                    onToggle={() => {}}
-                    onClick={() => setModalIsOpen(i)}
-                  />
+                  <TodoItem key={i} todo={todo} onToggle={() => {}} />
                 ))}
             </Container>
           </>
         )}
       </WrapperApp>
-      {data.tasks && (
-        <TaskModal
-          isOpen={modalIsOpen !== false}
-          onRequestClose={() => {
-            setModalIsOpen(false)
-          }}
-          task={
-            typeof modalIsOpen === 'number'
-              ? data.tasks[modalIsOpen]
-              : data.tasks[0]
-          }
-          subtasks={data.tasks}
-        />
-      )}
+      <TaskModal />
     </>
   )
 }

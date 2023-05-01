@@ -18,7 +18,7 @@ const Home: NextPage = () => {
   // console.log(data)
 
   // const { data: todos, isLoading, error } = useQuery('todos', fetchTodos)
-  const data = useTasks('359051936857588309')
+  const data = useTasks('359051936857588309', { inMainView: true })
   const { projects, isProjectsLoading } = useProjects('359051936857588309')
 
   return (

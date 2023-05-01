@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import DoneButton from '../atoms/DoneButton'
 import { useTasks } from '../hooks/useTasks'
 import { queryClient } from '../pages/_app'
+import { useTaskStore } from '../store/useTaskStore'
 import { axiosApi } from '../utils/axiosApi'
 import { Project } from '../utils/types/_Project'
 import { Task } from '../utils/types/_Task'
@@ -12,19 +13,10 @@ async function updateTodo(
   updatedTodo: Partial<Task>
 ): Promise<any> {
   const response = await axiosApi.patch(`/tasks/${id}`, updatedTodo)
-  debugger
   return response.data
 }
 
-const TodoItem = ({
-  todo,
-  onToggle,
-  onClick,
-}: {
-  todo: Task
-  onToggle: any
-  onClick?: () => void
-}) => {
+const TodoItem = ({ todo, onToggle }: { todo: Task; onToggle: any }) => {
   const { updateTask } = useTasks('359051936857588309')
   const router = useRouter()
   const pathname = router.pathname
@@ -41,10 +33,15 @@ const TodoItem = ({
     (project: any) => project.id === todo.projectId
   )
 
+  const { setTaskSelected, addTaskSelectedHistoric } = useTaskStore()
+
   return (
     <div
       className="flex items-start  hover:bg-blue-50 px-4 dark:hover:bg-slate-700  w-[400px] rounded-2xl dark:bg-slate-700/80 relative ml-6 hover:cursor-pointer"
-      onClick={onClick}
+      onClick={() => {
+        addTaskSelectedHistoric(todo)
+        setTaskSelected(todo)
+      }}
     >
       <section className="h-full flex items-center">
         <DoneButton

@@ -9,8 +9,8 @@ export default function SideBar() {
       >
         dashboard
       </Link>
-      <Link href="/" className="dark:hover:bg-slate-700/80 px-5 py-2">
-        projects
+      <Link href="/inbox" className="dark:hover:bg-slate-700/80 px-5 py-2">
+        inbox
       </Link>
       <Link href="/settings" className="dark:hover:bg-slate-700/80 px-5 py-2">
         settings

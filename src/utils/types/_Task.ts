@@ -17,7 +17,7 @@ export interface Task {
 
   userId?: string //(referência ao usuário que criou a tarefa)
 
-  mainView?: boolean
+  inMainView?: boolean
   parentId?: string
   projectId?: string //(referência ao projeto que criou a tarefa)
 }

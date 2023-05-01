@@ -3,20 +3,11 @@ import { queryClient } from '../pages/_app'
 import { axiosApi } from '../utils/axiosApi'
 import { Task } from '../utils/types/_Task'
 
-export const useTasks = (userId: string) => {
-  const tasksUrl = `/tasks?inMainView=true`
-  // const tasksUrl = `/api/tasks`
-
-  const {
-    data: tasks,
-    isLoading: isTasksLoading,
-    isError: isTasksError,
-    error: tasksError,
-  } = useQuery<Task[]>(
-    'tasks',
+function get(url: string, userId: string, key: string | string[]) {
+  return useQuery<Task[]>(
+    key,
     async () => {
-      const { data } = await axiosApi.get<Task[]>(tasksUrl)
-      debugger
+      const { data } = await axiosApi.get<Task[]>(url)
       return data
     },
     {
@@ -24,6 +15,23 @@ export const useTasks = (userId: string) => {
       enabled: !!userId,
     }
   )
+}
+
+export const useTasks = (userId: string, options?: Partial<Task>) => {
+  const optionsQuery =
+    options &&
+    Object.entries(options)
+      .map(([key, value]) => `${key}=${value}`)
+      .join('&')
+
+  const {
+    data: tasks,
+    isLoading: isTasksLoading,
+    isError: isTasksError,
+    error: tasksError,
+  } = optionsQuery
+    ? get(`/tasks?${optionsQuery}`, userId, ['tasks', optionsQuery])
+    : get(`/tasks`, userId, ['tasks'])
 
   const {
     mutate: createTask,
@@ -58,8 +66,15 @@ export const useTasks = (userId: string) => {
     isError: isUpdateTaskError,
     error: updateTaskError,
   } = useMutation(fetchUpdate, {
-    onSuccess: () => {
-      queryClient.invalidateQueries('tasks')
+    onSuccess: task => {
+      const isSubTask =
+        typeof task?.parentId === 'string' || typeof task?.parentId === 'number'
+
+      if (isSubTask) {
+        queryClient.invalidateQueries(['subTasks', task.parentId])
+      } else {
+        queryClient.invalidateQueries('tasks')
+      }
     },
   })
 

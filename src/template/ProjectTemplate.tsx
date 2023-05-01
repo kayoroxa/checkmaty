@@ -45,25 +45,14 @@ export default function ProjectTemplate({ projectId }: IProps) {
               {data.tasks
                 .filter(t => !t.done)
                 .map((todo: Task, i: number) => (
-                  <TodoItem
-                    key={i}
-                    todo={todo}
-                    onToggle={() => {}}
-                    onClick={() => setModalIsOpen(i)}
-                  />
+                  <TodoItem key={i} todo={todo} onToggle={() => {}} />
                 ))}
             </Container>
             <Container title="Done Today:">
               {data.tasks
                 .filter(t => t.done)
                 .map((todo: Task, i: number) => (
-                  <TodoItem
-                    key={i}
-                    todo={todo}
-                    onToggle={() => {}}
-                    onClick={() => setModalIsOpen(i)}
-                    initialDone={true}
-                  />
+                  <TodoItem key={i} todo={todo} onToggle={() => {}} />
                 ))}
               {/* {Array.from(Array(3).keys()).map((_, i) => (
                 <TodoItem
@@ -92,7 +81,6 @@ export default function ProjectTemplate({ projectId }: IProps) {
               ? data.tasks[modalIsOpen]
               : data.tasks[0]
           }
-          subtasks={data.tasks}
         />
       )}
     </>
