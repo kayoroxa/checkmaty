@@ -1,4 +1,5 @@
 ✔ stateManegment task selected @done(23-04-30 22:00)
 ✔ update toggle done "db" @done(23-04-30 22:00)
-☐ mudar nome
-☐ criar subtask
+✔ mudar nome @done(23-05-01 20:45)
+☐ criar task 
+☐ mostrando que tem tarefa de hoje ( filtrar tarefas pra hoje ) ( aviso vermelho )

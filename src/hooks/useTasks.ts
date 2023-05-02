@@ -1,5 +1,6 @@
 import { useMutation, useQuery } from 'react-query'
 import { queryClient } from '../pages/_app'
+import { useTaskStore } from '../store/useTaskStore'
 import { axiosApi } from '../utils/axiosApi'
 import { Task } from '../utils/types/_Task'
 
@@ -33,20 +34,31 @@ export const useTasks = (userId: string, options?: Partial<Task>) => {
     ? get(`/tasks?${optionsQuery}`, userId, ['tasks', optionsQuery])
     : get(`/tasks`, userId, ['tasks'])
 
+  interface TaskCreate extends Omit<Task, 'id'> {
+    id?: number
+  }
+
   const {
     mutate: createTask,
     isLoading: isCreateTaskLoading,
     isError: isCreateTaskError,
     error: createTaskError,
   } = useMutation(
-    async (newTask: Task) => {
+    async (newTask: TaskCreate) => {
       const { data } = await axiosApi.post<Task>('/tasks', newTask)
       return data
     },
     {
-      onSuccess: data => {
-        // This function is called if the mutation is successful
-        // You can do things like updating your cache here
+      onSuccess: task => {
+        const isSubTask =
+          typeof task?.parentId === 'string' ||
+          typeof task?.parentId === 'number'
+
+        if (isSubTask) {
+          queryClient.invalidateQueries(['subTasks', task.parentId])
+        } else {
+          queryClient.invalidateQueries('tasks')
+        }
       },
     }
   )
@@ -85,12 +97,16 @@ export const useTasks = (userId: string, options?: Partial<Task>) => {
     error: deleteTaskError,
   } = useMutation(
     async (taskId: string) => {
-      await axiosApi.delete(`/api/tasks/${taskId}`)
+      const { data } = await axiosApi.delete(`/tasks/${taskId}`)
+      return data
     },
     {
       onSuccess: () => {
-        // This function is called if the mutation is successful
-        // You can do things like updating your cache here
+        const { setTaskSelected } = useTaskStore()
+        debugger
+        queryClient.invalidateQueries('tasks')
+        queryClient.invalidateQueries('subTasks')
+        setTaskSelected(null)
       },
     }
   )

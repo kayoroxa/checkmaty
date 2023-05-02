@@ -15,7 +15,9 @@
       "done": true,
       "userId": "359051936857588309",
       "inMainView": true,
-      "tagsId": []
+      "tagsId": [],
+      "projectId": false,
+      "parentId": false
     },
     {
       "id": 2,
@@ -24,19 +26,24 @@
       "relevance": 10,
       "simplicity": 5,
       "done": true,
-      "inMainView": true,
+      "inMainView": false,
       "userId": "359051936857588309",
-      "tagsId": ["359147022097318485"]
+      "tagsId": ["359147022097318485"],
+      "projectId": false,
+      "parentId": false
     },
     {
       "id": 3,
-      "title": "comprar abacaixi",
-      "description": "lá em thiago",
-      "relevance": 10,
+      "title": "Comprar morango",
+      "description": "Comprar morango asd",
+      "relevance": "2",
       "simplicity": 5,
       "done": true,
-      "inMainView": true,
-      "userId": "359051936857588309"
+      "inMainView": false,
+      "userId": "359051936857588309",
+      "projectId": false,
+      "parentId": false,
+      "Due date": "Today"
     },
     {
       "id": 4,
@@ -46,7 +53,9 @@
       "simplicity": "5",
       "done": false,
       "inMainView": false,
-      "userId": "359051936857588309"
+      "userId": "359051936857588309",
+      "projectId": false,
+      "parentId": false
     },
     {
       "id": 5,
@@ -57,7 +66,8 @@
       "done": false,
       "inMainView": true,
       "userId": "359051936857588309",
-      "projectId": 3
+      "projectId": 3,
+      "parentId": false
     },
     {
       "id": 6,
@@ -68,6 +78,7 @@
       "done": true,
       "inMainView": false,
       "userId": "359051936857588309",
+      "projectId": false,
       "parentId": 5
     },
     {
@@ -80,7 +91,16 @@
       "done": true,
       "inMainView": false,
       "userId": "359051936857588309",
+      "projectId": false,
       "parentId": 6
+    },
+    {
+      "id": 8,
+      "title": "New task oyu",
+      "description": "",
+      "userId": "359051936857588309",
+      "inMainView": true,
+      "done": false
     }
   ],
   "tags": [

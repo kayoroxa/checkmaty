@@ -30,7 +30,7 @@ export default function WrapperTaskModal({
 
   const showHistoric = taskSelectedHistoric && taskSelectedHistoric?.length > 1
 
-  const { updateTask } = useTasks('359051936857588309')
+  const { updateTask, deleteTask } = useTasks('359051936857588309')
 
   if (!taskSelected) return null
   return (
@@ -97,6 +97,15 @@ export default function WrapperTaskModal({
               })
             }}
           />
+
+          <button
+            onClick={() => {
+              deleteTask(String(taskSelected.id))
+            }}
+            className="mt-auto bg-red-600/30 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+          >
+            Delete
+          </button>
         </section>
       </main>
     </Modal>
