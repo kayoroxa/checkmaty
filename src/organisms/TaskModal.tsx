@@ -57,7 +57,7 @@ function TaskModal({ ...wrapperProps }: Props) {
                 updatedTask: { description: newValue },
               })
             }}
-            value={task.title}
+            value={task.description}
             className="text-lg mb-4  w-full"
           />
         </section>

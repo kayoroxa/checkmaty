@@ -32,7 +32,7 @@ export default function Header() {
       <section className="mr-auto flex gap-4">
         <ButtonOp
           title="Add task"
-          onClick={() => {
+          onClick={async () => {
             const tasks =
               (queryClient.getQueryState('tasks')?.data as Task[]) || []
 
@@ -43,8 +43,6 @@ export default function Header() {
               inMainView: true,
               done: false,
             })
-
-            setTaskSelected(tasks.slice(-1)[0])
           }}
         />
         <ButtonOp title="Add Project" onClick={() => {}} />

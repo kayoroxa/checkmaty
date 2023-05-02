@@ -38,6 +38,7 @@ export const useTasks = (userId: string, options?: Partial<Task>) => {
     id?: number
   }
 
+  const { setTaskSelected } = useTaskStore()
   const {
     mutate: createTask,
     isLoading: isCreateTaskLoading,
@@ -59,6 +60,7 @@ export const useTasks = (userId: string, options?: Partial<Task>) => {
         } else {
           queryClient.invalidateQueries('tasks')
         }
+        setTaskSelected(task)
       },
     }
   )
