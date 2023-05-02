@@ -1,9 +1,7 @@
 import { MdAddTask } from 'react-icons/md'
 import SquareImg from '../atoms/SquareImg'
 import { useTasks } from '../hooks/useTasks'
-import { queryClient } from '../pages/_app'
 import { useTaskStore } from '../store/useTaskStore'
-import { Task } from '../utils/types/_Task'
 
 function ButtonOp({
   title,
@@ -33,19 +31,18 @@ export default function Header() {
         <ButtonOp
           title="Add task"
           onClick={async () => {
-            const tasks =
-              (queryClient.getQueryState('tasks')?.data as Task[]) || []
-
             createTask({
               title: 'New task',
               description: '',
               userId: '359051936857588309',
               inMainView: true,
               done: false,
+              parentId: false,
+              projectId: false,
             })
           }}
         />
-        <ButtonOp title="Add Project" onClick={() => {}} />
+        {/* <ButtonOp title="Add Project" onClick={() => {}} /> */}
       </section>
 
       <div className="-mt-2">

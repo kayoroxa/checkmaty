@@ -104,8 +104,6 @@ export const useTasks = (userId: string, options?: Partial<Task>) => {
     },
     {
       onSuccess: () => {
-        const { setTaskSelected } = useTaskStore()
-        debugger
         queryClient.invalidateQueries('tasks')
         queryClient.invalidateQueries('subTasks')
         setTaskSelected(null)
