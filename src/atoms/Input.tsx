@@ -1,4 +1,4 @@
-import { InputHTMLAttributes } from 'react'
+import { InputHTMLAttributes, useEffect, useRef } from 'react'
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   value?: string
@@ -6,9 +6,18 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 export default function Input({ value, onValueChange, ...props }: InputProps) {
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.value = value || ''
+    }
+  }, [value])
+
   return (
     <input
       {...props}
+      ref={inputRef}
       type="text"
       style={{ background: 'transparent' }}
       defaultValue={value || ''}
