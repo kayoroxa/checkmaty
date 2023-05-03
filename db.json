@@ -14,10 +14,7 @@
       "simplicity": 10,
       "done": true,
       "userId": "359051936857588309",
-      "inMainView": true,
-      "tagsId": [],
-      "projectId": false,
-      "parentId": false
+      "inMainView": true
     },
     {
       "id": 2,
@@ -29,10 +26,8 @@
       "inMainView": false,
       "userId": "359051936857588309",
       "tagsId": [
-        "359147022097318485"
-      ],
-      "projectId": false,
-      "parentId": false
+        1
+      ]
     },
     {
       "id": 3,
@@ -43,8 +38,6 @@
       "done": true,
       "inMainView": false,
       "userId": "359051936857588309",
-      "projectId": false,
-      "parentId": false,
       "Due date": "Today"
     },
     {
@@ -55,9 +48,7 @@
       "simplicity": "5",
       "done": false,
       "inMainView": false,
-      "userId": "359051936857588309",
-      "projectId": false,
-      "parentId": false
+      "userId": "359051936857588309"
     },
     {
       "id": 5,
@@ -68,8 +59,7 @@
       "done": false,
       "inMainView": true,
       "userId": "359051936857588309",
-      "projectId": 3,
-      "parentId": false
+      "projectId": 3
     },
     {
       "id": 6,
@@ -80,7 +70,6 @@
       "done": true,
       "inMainView": false,
       "userId": "359051936857588309",
-      "projectId": false,
       "parentId": 5
     },
     {
@@ -93,16 +82,25 @@
       "done": true,
       "inMainView": false,
       "userId": "359051936857588309",
-      "projectId": false,
       "parentId": 6
     },
     {
-      "title": "New task",
+      "title": "Comprar cadeira",
+      "description": "",
+      "userId": "359051936857588309",
+      "inMainView": false,
+      "done": false,
+      "id": 8
+    },
+    {
+      "title": "Fazer Area de alunos",
       "description": "",
       "userId": "359051936857588309",
       "inMainView": true,
       "done": false,
-      "id": 8
+      "parentId": null,
+      "projectId": null,
+      "id": 9
     }
   ],
   "tags": [

@@ -22,7 +22,10 @@ export const useTasks = (userId: string, options?: Partial<Task>) => {
   const optionsQuery =
     options &&
     Object.entries(options)
-      .map(([key, value]) => `${key}=${value}`)
+      .map(([key, value]) => {
+        if (value === null) return `${key}_null`
+        return `${key}=${value}`
+      })
       .join('&')
 
   const {

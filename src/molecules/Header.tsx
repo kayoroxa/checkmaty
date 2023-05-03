@@ -1,25 +1,7 @@
-import { MdAddTask } from 'react-icons/md'
+import ButtonOp from '../atoms/ButtonOp'
 import SquareImg from '../atoms/SquareImg'
 import { useTasks } from '../hooks/useTasks'
 import { useTaskStore } from '../store/useTaskStore'
-
-function ButtonOp({
-  title,
-  onClick,
-}: {
-  title?: string
-  onClick?: () => void
-}) {
-  return (
-    <button
-      className="flex gap-3 group hover:cursor-pointer hover:dark:bg-slate-600/80 p-2"
-      onClick={onClick}
-    >
-      <MdAddTask size={30} className="group-hover:fill-green-400" />
-      <h1 className="text-xl group-hover:text-green-400">{title}</h1>
-    </button>
-  )
-}
 
 export default function Header() {
   const { createTask } = useTasks('359051936857588309')
@@ -37,8 +19,8 @@ export default function Header() {
               userId: '359051936857588309',
               inMainView: true,
               done: false,
-              parentId: false,
-              projectId: false,
+              parentId: null,
+              projectId: null,
             })
           }}
         />
