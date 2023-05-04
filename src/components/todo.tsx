@@ -9,7 +9,7 @@ import { Project } from '../utils/types/_Project'
 import { Task } from '../utils/types/_Task'
 
 async function updateTodo(
-  id: string,
+  id: number,
   updatedTodo: Partial<Task>
 ): Promise<any> {
   const response = await axiosApi.patch(`/tasks/${id}`, updatedTodo)
@@ -53,7 +53,11 @@ const TodoItem = ({ todo, onToggle }: { todo: Task; onToggle: any }) => {
         />
       </section>
 
-      <section className={`py-3 ${todo.done ? 'opacity-60' : 'opacity-100'}`}>
+      <section
+        className={`py-3 overflow-hidden  ${
+          todo.done ? 'opacity-60' : 'opacity-100'
+        }`}
+      >
         <div
           className={`flex-1 text-2xl text-gray-900 dark:text-white ${
             todo.done ? 'line-through' : ''
@@ -61,11 +65,11 @@ const TodoItem = ({ todo, onToggle }: { todo: Task; onToggle: any }) => {
         >
           {todo.title}
         </div>
-        <div className="flex gap-5">
+        <div className="flex gap-5 ">
           <div
-            className={`text-lg font-thin flex-1 text-ellipsis text-gray-900 dark:text-white`}
+            className={`text-lg font-thin flex-1 text-ellipsis whitespace-nowrap text-gray-900 dark:text-white`}
           >
-            {todo?.description || 'ㅤ'}
+            {todo?.description || ''}
           </div>
           {myProject && !pathname.includes('project') && (
             <Link

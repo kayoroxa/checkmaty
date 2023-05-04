@@ -2,7 +2,7 @@ import { useMutation, useQuery } from 'react-query'
 import { queryClient } from '../pages/_app'
 import { useTaskStore } from '../store/useTaskStore'
 import { axiosApi } from '../utils/axiosApi'
-import { Task } from '../utils/types/_Task'
+import { Task, TaskCreate } from '../utils/types/_Task'
 
 function get(url: string, userId: string, key: string | string[]) {
   return useQuery<Task[]>(
@@ -23,7 +23,7 @@ export const useTasks = (userId: string, options?: Partial<Task>) => {
     options &&
     Object.entries(options)
       .map(([key, value]) => {
-        if (value === null) return `${key}_null`
+        // if (value === null) return `${key}_null`
         return `${key}=${value}`
       })
       .join('&')
@@ -37,11 +37,12 @@ export const useTasks = (userId: string, options?: Partial<Task>) => {
     ? get(`/tasks?${optionsQuery}`, userId, ['tasks', optionsQuery])
     : get(`/tasks`, userId, ['tasks'])
 
-  interface TaskCreate extends Omit<Task, 'id'> {
-    id?: number
-  }
-
-  const { setTaskSelected } = useTaskStore()
+  const {
+    setTaskSelected,
+    taskSelected,
+    setTaskIdSelected,
+    setTaskSelectedHistoric,
+  } = useTaskStore()
   const {
     mutate: createTask,
     isLoading: isCreateTaskLoading,
@@ -57,9 +58,9 @@ export const useTasks = (userId: string, options?: Partial<Task>) => {
         const isSubTask =
           typeof task?.parentId === 'string' ||
           typeof task?.parentId === 'number'
-
         if (isSubTask) {
-          queryClient.invalidateQueries(['subTasks', task.parentId])
+          // queryClient.invalidateQueries('subTasks')
+          queryClient.invalidateQueries(['tasks', `parentId=${task.parentId}`])
         } else {
           queryClient.invalidateQueries('tasks')
         }
@@ -69,7 +70,7 @@ export const useTasks = (userId: string, options?: Partial<Task>) => {
   )
 
   async function fetchUpdate(props: {
-    id: string
+    id: number
     updatedTask: Partial<Task>
   }) {
     const { id, updatedTask } = props
@@ -88,7 +89,7 @@ export const useTasks = (userId: string, options?: Partial<Task>) => {
         typeof task?.parentId === 'string' || typeof task?.parentId === 'number'
 
       if (isSubTask) {
-        queryClient.invalidateQueries(['subTasks', task.parentId])
+        queryClient.invalidateQueries(['tasks', `parentId=${task.parentId}`])
       } else {
         queryClient.invalidateQueries('tasks')
       }
@@ -109,7 +110,18 @@ export const useTasks = (userId: string, options?: Partial<Task>) => {
       onSuccess: () => {
         queryClient.invalidateQueries('tasks')
         queryClient.invalidateQueries('subTasks')
-        setTaskSelected(null)
+        if (!taskSelected?.parentId) {
+          setTaskSelected(null)
+        } else {
+          setTaskIdSelected(taskSelected?.parentId)
+          setTaskSelectedHistoric(prev => {
+            if (prev.length > 2) {
+              return prev.slice(0, prev.length - 1)
+            } else {
+              return []
+            }
+          })
+        }
       },
     }
   )

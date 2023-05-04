@@ -9,7 +9,7 @@ export default function ProjectItem({
   imgUrl: string
   name: string
   percent: number
-  id: string
+  id: number
 }) {
   return (
     <Link href={'/project/' + id}>

@@ -4,6 +4,7 @@ module.exports = (req, res, next) => {
   const hasNull = entriesQuery.some(([_, value]) => value === 'null')
 
   if (hasNull) {
+    console.log('is null')
     const path = req.url.split('?')[0].replace('/', '')
     const filteredTasks = jsonDb[path].filter(data => {
       return entriesQuery.every(([q_key, q_value]) => {
@@ -12,7 +13,9 @@ module.exports = (req, res, next) => {
         if (isToBeNull) {
           return data[q_key] === undefined || data[q_key] === null
         } else {
-          return data[q_key] === q_value
+          console.log(data[q_key])
+          console.log(q_value)
+          return String(data[q_key]) === q_value
         }
       })
     })

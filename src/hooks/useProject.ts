@@ -2,7 +2,7 @@ import { useQuery } from 'react-query'
 import { axiosApi } from '../utils/axiosApi'
 import { Project } from '../utils/types/_Project'
 
-export const useProject = (id: string) => {
+export const useProject = (id: number) => {
   const projectsUrl = `/projects?id=${id}`
 
   const {

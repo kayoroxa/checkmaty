@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import { queryClient } from '../pages/_app'
 import { Task } from '../utils/types/_Task'
 
 interface MyState {
@@ -8,11 +9,20 @@ interface MyState {
   addTaskSelectedHistoric: (task: Task) => void
   resetTaskSelectedHistoric: () => void
   setTaskSelectedHistoric: (callBack: (prev: Task[]) => Task[]) => void
+  setTaskIdSelected: (id: number) => void
 }
 
 export const useTaskStore = create<MyState>()((set, get) => ({
   taskSelected: null,
-  setTaskSelected: task => set({ taskSelected: task }),
+  setTaskSelected: task => {
+    set({ taskSelected: task })
+
+    const lastTaskInHistoric = get().taskSelectedHistoric?.slice(-1)[0]
+
+    if (task && lastTaskInHistoric?.id === task?.parentId) {
+      get()?.addTaskSelectedHistoric(task)
+    }
+  },
 
   taskSelectedHistoric: null,
   addTaskSelectedHistoric: (task: Task) => {
@@ -35,5 +45,10 @@ export const useTaskStore = create<MyState>()((set, get) => ({
     } else {
       set({ taskSelectedHistoric: [] })
     }
+  },
+  setTaskIdSelected: (id: number) => {
+    const tasks = (queryClient.getQueryState(['tasks'])?.data as Task[]) || []
+    const taskSelected = tasks.find(task => task.id === id)
+    set({ taskSelected })
   },
 }))
