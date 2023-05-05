@@ -81,7 +81,7 @@ function TaskModal({ ...wrapperProps }: Props) {
       {subtasks && (
         <div className="border-t border-gray-200 mt-4 pt-4">
           <h3 className="text-2xl font-medium mb-2">Subtasks:</h3>
-          <ul className="list-disc pl-4 flex flex-col gap-4 ">
+          <ul className="list-disc pl-4 flex flex-col gap-4 w-full">
             {subtasks.map((subtask, i) => (
               <TodoItem
                 key={subtask.id || i}

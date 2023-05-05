@@ -1,31 +1,31 @@
 / components
-   /Task.js
-   /TaskList.js
-   /Project.js
-   /ProjectList.js
-   /Tag.js
-   /TagList.js
+/Task.js
+/TaskList.js
+/Project.js
+/ProjectList.js
+/Tag.js
+/TagList.js
 / pages
-   /index.js
-   /_app.js
-   /tasks
-      /index.js
-      /[taskId].js
-   /projects
-      /index.js
-      /[projectId].js
-   /tags
-      /index.js
-      /[tagId].js
-   /api
-      /tasks.js
-      /projects.js
-      /tags.js
-      /user.js
+/index.js
+/\_app.js
+/tasks
+/index.js
+/[taskId].js
+/projects
+/index.js
+/[projectId].js
+/tags
+/index.js
+/[tagId].js
+/api
+/tasks.js
+/projects.js
+/tags.js
+/user.js
 / lib
-   /fauna.js
+/fauna.js
 / hooks
-   /useTasks.js
-   /useProjects.js
-   /useTags.js
-   /useUser.js
+/useTasks.js
+/useProjects.js
+/useTags.js
+/useUser.js

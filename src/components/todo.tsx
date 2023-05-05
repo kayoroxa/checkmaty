@@ -8,8 +8,7 @@ import { axiosApi } from '../utils/axiosApi'
 import { Project } from '../utils/types/_Project'
 import { Task } from '../utils/types/_Task'
 
-import Group from '../atoms/Group'
-import { FaBolt, FaBullseye, FaFire, FaWindowClose } from 'react-icons/fa'
+import { FaBolt, FaBullseye, FaFire } from 'react-icons/fa'
 
 async function updateTodo(
   id: number,
@@ -40,13 +39,13 @@ const TodoItem = ({ todo, onToggle }: { todo: Task; onToggle: any }) => {
 
   return (
     <div
-      className="flex items-start  hover:bg-blue-50 px-4 dark:hover:bg-slate-700  w-[400px] rounded-2xl dark:bg-slate-700/80 relative ml-6 hover:cursor-pointer"
+      className="flex items-start  hover:bg-blue-50 px-4 dark:hover:bg-slate-700  min-w-[400px] rounded-2xl dark:bg-slate-700/80 relative ml-6 hover:cursor-pointer"
       onClick={() => {
         addTaskSelectedHistoric(todo)
         setTaskSelected(todo)
       }}
     >
-      <section className="h-full flex items-center">
+      <section className="h-full my-auto flex items-center justify-center">
         <DoneButton
           done={todo.done || false}
           onClick={event => {
@@ -57,7 +56,7 @@ const TodoItem = ({ todo, onToggle }: { todo: Task; onToggle: any }) => {
       </section>
 
       <section
-        className={`py-3 overflow-hidden  ${
+        className={`py-3 overflow-hidden w-full  ${
           todo.done ? 'opacity-60' : 'opacity-100'
         } flex flex-col h-full`}
       >
@@ -68,36 +67,45 @@ const TodoItem = ({ todo, onToggle }: { todo: Task; onToggle: any }) => {
         >
           {todo.title}
         </div>
-        <div className="flex gap-5 ">
-          <div
-            className={`text-lg font-thin flex-1 text-ellipsis whitespace-nowrap text-gray-900 dark:text-white`}
-          >
-            {todo?.description || ''}
-          </div>
-          {myProject && !pathname.includes('project') && (
-            <Link
-              onClick={event => event.stopPropagation()}
-              href={`/project/${myProject.id}`}
-              className="text-lg text-yellow-400/70 hover:underline"
+        <div className="flex gap-5">
+          {todo?.description && (
+            <div
+              className={`text-lg font-thin text-ellipsis whitespace-nowrap text-gray-900 dark:text-white`}
             >
-              #{myProject?.name}
-            </Link>
+              {todo?.description || ''}
+            </div>
           )}
         </div>
-        <section className="flex gap-2 pt-2  ">
-          <div className="flex gap-2">
-            <FaBolt size={20} className="fill-blue-400 -mr-2" />
-            <p>{todo.simplicity === undefined ? 0 : todo.simplicity}</p>
-          </div>
-          <div className="flex gap-2">
-            <FaBullseye size={20} className="fill-yellow-400 -mr-1" />
-            <p>{todo.relevance === undefined ? 0 : todo.relevance}</p>
-          </div>
-          <div className="flex gap-2">
-            <FaFire size={20} className="fill-red-400 -mr-1 " />
-            <p>{todo.urgency === undefined ? 0 : todo.urgency}</p>
-          </div>
-        </section>
+        <footer className="flex  mt-2 justify-between w-full">
+          <section className="flex gap-2">
+            <div className="flex gap-2">
+              <FaBolt size={20} className="fill-blue-400 -mr-2" />
+              <p>{todo.simplicity === undefined ? 0 : todo.simplicity}</p>
+            </div>
+            <div className="flex gap-2">
+              <FaBullseye size={20} className="fill-yellow-400 -mr-1" />
+              <p>{todo.relevance === undefined ? 0 : todo.relevance}</p>
+            </div>
+            <div className="flex gap-2">
+              <FaFire size={20} className="fill-red-400 -mr-1 " />
+              <p>{todo.urgency === undefined ? 0 : todo.urgency}</p>
+            </div>
+          </section>
+          <section>
+            {myProject && !pathname.includes('project') && (
+              <Link
+                onClick={event => event.stopPropagation()}
+                href={`/project/${myProject.id}`}
+                className="text-lg text-yellow-400/70 hover:underline"
+              >
+                #
+                {myProject?.name.length > 19
+                  ? myProject?.name.slice(0, 19) + '...'
+                  : myProject?.name}
+              </Link>
+            )}
+          </section>
+        </footer>
       </section>
     </div>
   )

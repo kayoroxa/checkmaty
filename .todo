@@ -3,3 +3,4 @@
 ✔ mudar nome @done(23-05-01 20:45)
 ✔ criar task @done(23-05-03 19:34)
 ☐ mostrando que tem tarefa de hoje ( filtrar tarefas pra hoje ) ( aviso vermelho )
+☐ quando fazer update no project deixar invalida apenas a query do project não projects
