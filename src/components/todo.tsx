@@ -8,6 +8,9 @@ import { axiosApi } from '../utils/axiosApi'
 import { Project } from '../utils/types/_Project'
 import { Task } from '../utils/types/_Task'
 
+import Group from '../atoms/Group'
+import { FaBolt, FaBullseye, FaFire, FaWindowClose } from 'react-icons/fa'
+
 async function updateTodo(
   id: number,
   updatedTodo: Partial<Task>
@@ -56,7 +59,7 @@ const TodoItem = ({ todo, onToggle }: { todo: Task; onToggle: any }) => {
       <section
         className={`py-3 overflow-hidden  ${
           todo.done ? 'opacity-60' : 'opacity-100'
-        }`}
+        } flex flex-col h-full`}
       >
         <div
           className={`flex-1 text-2xl text-gray-900 dark:text-white ${
@@ -81,6 +84,20 @@ const TodoItem = ({ todo, onToggle }: { todo: Task; onToggle: any }) => {
             </Link>
           )}
         </div>
+        <section className="flex gap-2 pt-2  ">
+          <div className="flex gap-2">
+            <FaBolt size={20} className="fill-blue-400 -mr-2" />
+            <p>{todo.simplicity === undefined ? 0 : todo.simplicity}</p>
+          </div>
+          <div className="flex gap-2">
+            <FaBullseye size={20} className="fill-yellow-400 -mr-1" />
+            <p>{todo.relevance === undefined ? 0 : todo.relevance}</p>
+          </div>
+          <div className="flex gap-2">
+            <FaFire size={20} className="fill-red-400 -mr-1 " />
+            <p>{todo.urgency === undefined ? 0 : todo.urgency}</p>
+          </div>
+        </section>
       </section>
     </div>
   )

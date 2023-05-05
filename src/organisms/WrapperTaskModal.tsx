@@ -1,6 +1,5 @@
 import { AiOutlineCalendar } from 'react-icons/ai'
-import { FaWindowClose } from 'react-icons/fa'
-import { RiNumbersFill } from 'react-icons/ri'
+import { FaBolt, FaBullseye, FaFire, FaWindowClose } from 'react-icons/fa'
 import Modal from 'react-modal'
 import Group from '../atoms/Group'
 import Toggle from '../atoms/Toggle'
@@ -77,13 +76,13 @@ export default function WrapperTaskModal({
             <AiOutlineCalendar size={20} className="fill-green-400" />
           </Group>
           <Group title="relevance" value={String(task.relevance || 0)}>
-            <RiNumbersFill size={20} className="fill-yellow-400" />
+            <FaBullseye size={20} className="fill-yellow-400" />
           </Group>
           <Group title="simplicity" value={String(task.simplicity || 0)}>
-            <RiNumbersFill size={20} className="fill-red-400" />
+            <FaBolt size={20} className="fill-blue-400" />
           </Group>
           <Group title="urgency" value={String(task.urgency || 0)}>
-            <RiNumbersFill size={20} className="fill-blue-400 " />
+            <FaFire size={20} className="fill-red-400 " />
           </Group>
           <h3>Show in dashboard</h3>
           <Toggle

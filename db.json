@@ -58,7 +58,8 @@
       "done": false,
       "inMainView": true,
       "userId": "359051936857588309",
-      "projectId": 3
+      "projectId": 3,
+      "urgency": "0"
     },
     {
       "id": 6,
@@ -162,6 +163,30 @@
       "done": false,
       "projectId": 1,
       "id": 21
+    },
+    {
+      "title": "Por sal no açúcar",
+      "description": "",
+      "userId": "359051936857588309",
+      "inMainView": true,
+      "done": false,
+      "id": 22,
+      "Due date": "Today",
+      "relevance": "10",
+      "simplicity": "10",
+      "urgency": "10"
+    },
+    {
+      "title": "abrir o pote",
+      "description": "gire a tampa até o pote abrir",
+      "userId": "359051936857588309",
+      "inMainView": false,
+      "done": false,
+      "parentId": 22,
+      "id": 23,
+      "relevance": "5",
+      "simplicity": "3",
+      "urgency": "2"
     }
   ],
   "tags": [
