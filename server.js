@@ -1,9 +1,7 @@
 const jsonServer = require('json-server')
-const jsonConfig = require('./configJsonServer.json')
 require('dotenv').config({ path: './.env.local' })
-console.log(process.env.JSON_DB_PATH)
 
-if (jsonConfig?.path) {
+if (process.env.JSON_DB_PATH) {
   const server = jsonServer.create()
   const router = jsonServer.router(process.env.JSON_DB_PATH)
   const middlewares = jsonServer.defaults()
