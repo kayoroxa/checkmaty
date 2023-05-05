@@ -1,12 +1,16 @@
 import { useRouter } from 'next/router'
+import { MdAddTask } from 'react-icons/md'
+import { VscNewFolder } from 'react-icons/vsc'
 import ButtonOp from '../atoms/ButtonOp'
 import SquareImg from '../atoms/SquareImg'
+import { useProjects } from '../hooks/useProjects'
 import { useTasks } from '../hooks/useTasks'
 import { useTaskStore } from '../store/useTaskStore'
 import { TaskCreate } from '../utils/types/_Task'
 
 export default function Header() {
   const { createTask } = useTasks('359051936857588309')
+  const { createProject } = useProjects('359051936857588309')
   const { setTaskSelected } = useTaskStore()
 
   const { query, asPath } = useRouter()
@@ -36,7 +40,30 @@ export default function Header() {
 
             createTask(data)
           }}
-        />
+        >
+          <MdAddTask size={30} className="group-hover:fill-green-400" />
+        </ButtonOp>
+
+        <ButtonOp
+          title="Add Project"
+          onClick={async () => {
+            createProject({
+              name: 'New Project',
+              description: '',
+              createdByUserId: '359051936857588309',
+              createdAt: new Date().getTime(),
+              updatedAt: new Date().getTime(),
+              imgUrl: 'https://i.stack.imgur.com/IaZve.png',
+              coverImg:
+                'https://installnet.com/wp-content/themes/u-design/assets/images/placeholders/post-placeholder.jpg',
+              accessUserIds: [],
+              userId: '359051936857588309',
+            })
+          }}
+        >
+          <VscNewFolder size={30} className="group-hover:fill-green-400" />
+        </ButtonOp>
+
         {/* <ButtonOp title="Add Project" onClick={() => {}} /> */}
       </section>
       <div className="-mt-2">

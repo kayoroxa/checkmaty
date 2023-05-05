@@ -43,6 +43,7 @@ export const useTasks = (userId: string, options?: Partial<Task>) => {
     setTaskIdSelected,
     setTaskSelectedHistoric,
   } = useTaskStore()
+
   const {
     mutate: createTask,
     isLoading: isCreateTaskLoading,

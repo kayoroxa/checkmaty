@@ -6,8 +6,15 @@ export interface Project {
   coverImg: string
   imgUrl: string
 
-  createdAt: string
-  updatedAt: string
+  percent?: number
+
+  createdAt: number
+  updatedAt: number
   createdByUserId: string
   accessUserIds: string[]
+}
+
+export interface ProjectCreate extends Omit<Project, 'id'> {
+  id?: number
+  userId: string
 }

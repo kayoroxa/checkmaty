@@ -4,7 +4,6 @@ module.exports = (req, res, next) => {
   const hasNull = entriesQuery.some(([_, value]) => value === 'null')
 
   if (hasNull) {
-    console.log('is null')
     const path = req.url.split('?')[0].replace('/', '')
     const filteredTasks = jsonDb[path].filter(data => {
       return entriesQuery.every(([q_key, q_value]) => {
@@ -24,22 +23,4 @@ module.exports = (req, res, next) => {
   } else {
     next()
   }
-  // if (
-  //   req.url === '/tasks' &&
-  //   req.query.projectId === 'null' &&
-  //   !req.query.parentId
-  // ) {
-  //   // Obtém todas as tarefas
-
-  //   // Filtra as tarefas que não possuem projectId nem parentId
-  //   const filteredTasks = tasks.filter(
-  //     task => !task.projectId && !task.parentId
-  //   )
-
-  //   // Retorna as tarefas filtradas
-  //   res.json(filteredTasks)
-  // } else {
-  //   // Chama o próximo middleware
-  //   next()
-  // }
 }

@@ -1,6 +1,8 @@
-import { useQuery } from 'react-query'
+import { useRouter } from 'next/router'
+import { useMutation, useQuery } from 'react-query'
+import { queryClient } from '../pages/_app'
 import { axiosApi } from '../utils/axiosApi'
-import { Project } from '../utils/types/_Project'
+import { Project, ProjectCreate } from '../utils/types/_Project'
 
 export const useProjects = (userId: string) => {
   const projectsUrl = `/projects?userId=${userId}`
@@ -21,11 +23,33 @@ export const useProjects = (userId: string) => {
       enabled: !!userId,
     }
   )
+  const router = useRouter()
+  const {
+    mutate: createProject,
+    isLoading: isCreateProjectLoading,
+    isError: isCreateProjectError,
+    error: createProjectError,
+  } = useMutation(
+    async (newProject: ProjectCreate) => {
+      const { data } = await axiosApi.post<Project>('/projects', newProject)
+      return data
+    },
+    {
+      onSuccess: project => {
+        queryClient.invalidateQueries(['projects'])
+        router.push(`/project/${project.id}`)
+      },
+    }
+  )
 
   return {
     projects: projects || [],
     isProjectsLoading,
     isProjectsError,
     projectsError,
+    createProject,
+    isCreateProjectLoading,
+    isCreateProjectError,
+    createProjectError,
   }
 }
