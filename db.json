@@ -261,31 +261,6 @@
       "updatedAt": "2023-03-20T05:40:01.509Z",
       "userId": "359051936857588309",
       "percent": 0.8
-    },
-    {
-      "name": "New Project",
-      "description": "",
-      "createdByUserId": "359051936857588309",
-      "createdAt": 1683245837863,
-      "updatedAt": 1683245837863,
-      "imgUrl": "https://i.stack.imgur.com/IaZve.png",
-      "coverImg": "https://installnet.com/wp-content/themes/u-design/assets/images/placeholders/post-placeholder.jpg",
-      "accessUserIds": [],
-      "userId": "359051936857588309",
-      "percent": 0.8,
-      "id": 4
-    },
-    {
-      "name": "New Project",
-      "description": "",
-      "createdByUserId": "359051936857588309",
-      "createdAt": 1683246472694,
-      "updatedAt": 1683246472694,
-      "imgUrl": "https://i.stack.imgur.com/IaZve.png",
-      "coverImg": "https://installnet.com/wp-content/themes/u-design/assets/images/placeholders/post-placeholder.jpg",
-      "accessUserIds": [],
-      "userId": "359051936857588309",
-      "id": 5
     }
   ],
   "users": [

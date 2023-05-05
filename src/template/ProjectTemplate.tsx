@@ -15,7 +15,7 @@ interface IProps {
 }
 
 export default function ProjectTemplate({ projectId }: IProps) {
-  const { project } = useProject(projectId)
+  const { project, deleteProject } = useProject(projectId)
   const data = useTasksIn('359051936857588309', { projectId: projectId })
   const projectData = project
   const [modalIsOpen, setModalIsOpen] = useState<number | false>(false)
@@ -30,16 +30,22 @@ export default function ProjectTemplate({ projectId }: IProps) {
         {data.tasks && (
           <div className="relative flex flex-col gap-7">
             <header>
-              <div className="w-full h-[300px]">
+              <div className="w-full h-[300px] relative">
                 <img
                   src={projectData.coverImg}
                   alt=""
-                  className="object-cover m-h-full h-full m-w-full w-full"
+                  className="object-cover m-h-full h-full m-w-full w-full -z-10"
+                />
+                <BsFillTrashFill
+                  size={30}
+                  className="hover:cursor-pointer hover:fill-red-500 opacity-40 hover:opacity-100 absolute bottom-5 right-5"
+                  onClick={() => {
+                    deleteProject(projectId)
+                  }}
                 />
               </div>
-              <div className="-mt-12 mb-5 ml-11">
+              <div className="-mt-12 mb-5 ml-11 relative w-fit">
                 <SquareImg src={projectData.imgUrl} size={100} />
-                <BsFillTrashFill />
               </div>
               <div className="text-5xl">{projectData.name}</div>
             </header>
