@@ -38,7 +38,7 @@ export default function ProjectTemplate({ projectId }: IProps) {
                 />
                 <BsFillTrashFill
                   size={30}
-                  className="hover:cursor-pointer hover:fill-red-500 opacity-40 hover:opacity-100 absolute bottom-5 right-5"
+                  className="hover:cursor-pointer fill-red-500 hover:fill-red-500 opacity-40 hover:opacity-100 absolute bottom-5 right-5"
                   onClick={() => {
                     deleteProject(projectId)
                   }}
