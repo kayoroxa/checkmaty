@@ -2,6 +2,7 @@ import { AiOutlineCalendar } from 'react-icons/ai'
 import { FaWindowClose } from 'react-icons/fa'
 import { RiNumbersFill } from 'react-icons/ri'
 import Modal from 'react-modal'
+import DeleteButton from '../atoms/DeleteButton'
 import Group from '../atoms/Group'
 import Toggle from '../atoms/Toggle'
 import { useTasks } from '../hooks/useTasks'
@@ -25,7 +26,6 @@ export default function WrapperTaskModal({
     taskSelected,
     taskSelectedHistoric,
     setTaskSelected,
-    setTaskIdSelected,
     setTaskSelectedHistoric,
   } = useTaskStore()
 
@@ -90,7 +90,7 @@ export default function WrapperTaskModal({
             defaultValue={task.inMainView}
             onValueChange={value => {
               updateTask({
-                id: String(taskSelected.id),
+                id: taskSelected.id,
                 updatedTask: {
                   inMainView: value,
                 },
@@ -98,14 +98,7 @@ export default function WrapperTaskModal({
             }}
           />
 
-          <button
-            onClick={() => {
-              deleteTask(String(taskSelected.id))
-            }}
-            className="mt-auto bg-red-600/30 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-          >
-            Delete
-          </button>
+          <DeleteButton onClick={() => deleteTask(String(taskSelected.id))} />
         </section>
       </main>
     </Modal>

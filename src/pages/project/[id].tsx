@@ -8,10 +8,10 @@ export default function Project() {
 
   if (!id) return <h1>Passe o ID</h1>
 
-  if (typeof id === 'string') {
+  if (typeof id === 'string' || typeof id === 'number') {
     const data = useTasks('359051936857588309')
 
-    return <ProjectTemplate projectId={id} data={data} />
+    return <ProjectTemplate projectId={parseInt(id)} data={data} />
   }
   return <h1>Some Error..</h1>
 }

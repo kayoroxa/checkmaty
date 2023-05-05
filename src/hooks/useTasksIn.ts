@@ -5,7 +5,7 @@ import { Task } from '../utils/types/_Task'
 type Filter = {
   userId?: string
   inMainView?: boolean
-  projectId?: string
+  projectId?: number
   tagId?: string
 }
 
@@ -79,7 +79,7 @@ export const useTasksIn = (userId: string, filter: Filter) => {
     isError: isDeleteTaskError,
     error: deleteTaskError,
   } = useMutation(
-    async (taskId: string) => {
+    async (taskId: number) => {
       await axiosApi.delete(`/api/tasks/${taskId}`)
     },
     {

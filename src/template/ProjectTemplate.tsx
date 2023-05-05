@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { BsFillTrashFill } from 'react-icons/bs'
 import Container from '../atoms/Container'
 import SquareImg from '../atoms/SquareImg'
 import TodoItem from '../components/todo'
@@ -7,8 +8,9 @@ import { useTasksIn } from '../hooks/useTasksIn'
 import TaskModal from '../organisms/TaskModal'
 import WrapperApp from '../organisms/WrapperApp'
 import { Task } from '../utils/types/_Task'
+
 interface IProps {
-  projectId: string
+  projectId: number
   data: any
 }
 
@@ -37,6 +39,7 @@ export default function ProjectTemplate({ projectId }: IProps) {
               </div>
               <div className="-mt-12 mb-5 ml-11">
                 <SquareImg src={projectData.imgUrl} size={100} />
+                <BsFillTrashFill />
               </div>
               <div className="text-5xl">{projectData.name}</div>
             </header>
