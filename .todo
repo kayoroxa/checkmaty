@@ -2,5 +2,7 @@
 ✔ update toggle done "db" @done(23-04-30 22:00)
 ✔ mudar nome @done(23-05-01 20:45)
 ✔ criar task @done(23-05-03 19:34)
+☐ criar metas
+  ex: aposentadoria: tag de tarefas feitas 100 #videos postados, 50 #automatização, vai pegar a media e dizer qnt porcento falta pra meta
 ☐ mostrando que tem tarefa de hoje ( filtrar tarefas pra hoje ) ( aviso vermelho )
-☐ quando fazer update no project deixar invalida apenas a query do project não projects
+☐ quando fazer update no project dei  

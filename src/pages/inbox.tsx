@@ -7,6 +7,7 @@ export default function Inbox() {
     parentId: null,
     projectId: null,
   })
+
   return (
     <>
       <DashBoard data={data} isLoading={data.isTasksLoading} />

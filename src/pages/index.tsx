@@ -1,5 +1,6 @@
 import type { NextPage } from 'next'
 import { useProjects } from '../hooks/useProjects'
+import { useTasks } from '../hooks/useTasks'
 import DashBoard from '../template/DashBoard'
 
 const options = {
@@ -9,19 +10,17 @@ const options = {
 }
 
 const Home: NextPage = () => {
-  // const todo = { id: 1, text: 'Buy milk' }
-  // const { isLoading, error, data } = useQuery(['tasks'], () =>
-  //   fetch('http://localhost:3000/api/tasks', options).then(res => res.json())
-  // )
+  const dataTasks = useTasks('359051936857588309', { inMainView: true })
 
-  // console.log(data)
-
-  // const { data: todos, isLoading, error } = useQuery('todos', fetchTodos)
   const { projects, isProjectsLoading } = useProjects('359051936857588309')
 
   return (
     <>
-      <DashBoard projectsData={projects} isLoading={isProjectsLoading} />
+      <DashBoard
+        data={dataTasks}
+        projectsData={projects}
+        isLoading={isProjectsLoading}
+      />
     </>
   )
 }

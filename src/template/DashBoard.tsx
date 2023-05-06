@@ -1,6 +1,5 @@
 import Container from '../atoms/Container'
 import TodoItem from '../components/todo'
-import { useTasks } from '../hooks/useTasks'
 import ProjectItem from '../molecules/ProjectItem'
 import TaskModal from '../organisms/TaskModal'
 import WrapperApp from '../organisms/WrapperApp'
@@ -8,17 +7,22 @@ import { sortScoredTasks } from '../utils/sortTasks'
 import { Project } from '../utils/types/_Project'
 import { Task } from '../utils/types/_Task'
 
+interface TaskData {
+  tasks: Task[] | undefined
+  isTasksLoading: boolean
+  isTasksError: boolean
+}
+
 export default function DashBoard({
   projectsData,
   isLoading,
+  data,
 }: {
   projectsData?: Project[]
   isLoading: boolean
+  data: TaskData
 }) {
-  const { tasks, isTasksLoading, isTasksError } = useTasks(
-    '359051936857588309',
-    { inMainView: true }
-  )
+  const { tasks, isTasksLoading, isTasksError } = data
 
   return (
     <>
