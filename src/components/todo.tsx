@@ -10,6 +10,8 @@ import { Task } from '../utils/types/_Task'
 
 import { FaBolt, FaBullseye, FaFire } from 'react-icons/fa'
 
+const getOpacity = (point: number | undefined) => (point ? point / 10 : 0)
+
 async function updateTodo(
   id: number,
   updatedTodo: Partial<Task>
@@ -78,16 +80,25 @@ const TodoItem = ({ todo, onToggle }: { todo: Task; onToggle: any }) => {
         </div>
         <footer className="flex  mt-2 justify-between w-full">
           <section className="flex gap-2">
-            <div className="flex gap-2">
+            <div
+              className="flex gap-2"
+              style={{ opacity: getOpacity(todo.simplicity) }}
+            >
               <FaBolt size={20} className="fill-blue-400 -mr-2" />
               <p>{todo.simplicity === undefined ? 0 : todo.simplicity}</p>
             </div>
-            <div className="flex gap-2">
+            <div
+              className="flex gap-2"
+              style={{ opacity: getOpacity(todo.relevance) }}
+            >
               <FaBullseye size={20} className="fill-yellow-400 -mr-1" />
               <p>{todo.relevance === undefined ? 0 : todo.relevance}</p>
             </div>
-            <div className="flex gap-2">
-              <FaFire size={20} className="fill-red-400 -mr-1 " />
+            <div
+              className="flex gap-2"
+              style={{ opacity: getOpacity(todo.urgency) }}
+            >
+              <FaFire size={20} className="fill-red-400 -mr-1" />
               <p>{todo.urgency === undefined ? 0 : todo.urgency}</p>
             </div>
           </section>
