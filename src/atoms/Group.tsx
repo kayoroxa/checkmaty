@@ -40,7 +40,7 @@ export default function Group({
     <div className="border-b border-slate-500">
       <header className="flex gap-3">
         <h2>{title}</h2>
-        {formatted.length > 0 && (
+        {formatted && formatted?.length > 0 && (
           <div className="dark:bg-slate-600 px-4">{formatted}</div>
         )}
       </header>
