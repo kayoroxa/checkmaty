@@ -70,14 +70,14 @@ export default function ProjectTemplate({ projectId }: IProps) {
               />
             </header>
 
-            <Container title="Todo:">
+            <Container title="Todo:" grid={true}>
               {data.tasks
                 .filter(t => !t.done)
                 .map((todo: Task, i: number) => (
                   <TodoItem key={i} todo={todo} onToggle={() => {}} />
                 ))}
             </Container>
-            <Container title="Done Today:">
+            <Container title="Done Today:" grid={true}>
               {data.tasks
                 .filter(t => t.done)
                 .map((todo: Task, i: number) => (

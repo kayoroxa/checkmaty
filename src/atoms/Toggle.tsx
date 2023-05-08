@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 interface Props {
   defaultValue?: boolean
@@ -12,6 +12,10 @@ export default function Toggle({ defaultValue, onValueChange }: Props) {
     setIsChecked(event.target.checked)
     onValueChange && onValueChange(event.target.checked)
   }
+
+  useEffect(() => {
+    setIsChecked(defaultValue)
+  }, [defaultValue])
 
   return (
     <label className="relative inline-flex items-center cursor-pointer">

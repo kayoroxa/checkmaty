@@ -31,7 +31,7 @@ export default function DashBoard({
         {isTasksError && <p>Error não conseguindo carregar os tarefas</p>}
 
         {projectsData?.[0] && (
-          <Container title="Projects:" flex={true}>
+          <Container title="Projects:">
             {projectsData?.map((project: any, i: number) => (
               <ProjectItem
                 key={i}
@@ -46,16 +46,18 @@ export default function DashBoard({
 
         {tasks && (
           <>
-            <Container title="Todo:">
+            <Container title="Todo:" grid={true}>
               {sortScoredTasks(tasks)
                 .filter((t: Task) => !t.done)
+                .slice(0, 9)
                 .map((todo: Task, i: number) => (
                   <TodoItem key={i} todo={todo} onToggle={() => {}} />
                 ))}
             </Container>
-            <Container title="Done Today:">
+            <Container title="Done Today:" grid={true}>
               {sortScoredTasks(tasks)
                 .filter((t: Task) => t.done)
+                .slice(0, 9)
                 .map((todo: Task, i: number) => (
                   <TodoItem key={i} todo={todo} onToggle={() => {}} />
                 ))}

@@ -32,6 +32,17 @@ export default function WrapperTaskModal({
   const { updateTask, deleteTask } = useTasks('359051936857588309')
 
   if (!taskSelected) return null
+
+  // useEffect(() => {
+  //   setTaskSelectedHistoric(prevHistoric => {
+  //     const hasParent = task.parentId !== undefined || task.parentId !== false
+  //     if (hasParent && prevHistoric.length === 0) {
+  //       return prevHistoric ///terminar
+  //     }
+  //     return prevHistoric
+  //   })
+  // }, [])
+
   return (
     <Modal
       isOpen={isOpen}
@@ -75,13 +86,25 @@ export default function WrapperTaskModal({
           <Group title="Due date" value="Today">
             <AiOutlineCalendar size={20} className="fill-green-400" />
           </Group>
-          <Group title="relevance" value={String(task.relevance || 0)}>
+          <Group
+            title="relevance"
+            value={String(task.relevance || 0)}
+            slug="relevance"
+          >
             <FaBullseye size={20} className="fill-yellow-400" />
           </Group>
-          <Group title="simplicity" value={String(task.simplicity || 0)}>
+          <Group
+            title="simplicity"
+            value={String(task.simplicity || 0)}
+            slug="simplicity"
+          >
             <FaBolt size={20} className="fill-blue-400" />
           </Group>
-          <Group title="urgency" value={String(task.urgency || 0)}>
+          <Group
+            title="urgency"
+            value={String(task.urgency || 0)}
+            slug="urgency"
+          >
             <FaFire size={20} className="fill-red-400 " />
           </Group>
           <h3>Show in dashboard</h3>

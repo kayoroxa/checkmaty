@@ -85,12 +85,17 @@ export const useTasks = (userId: string, options?: Partial<Task>) => {
     isError: isUpdateTaskError,
     error: updateTaskError,
   } = useMutation(fetchUpdate, {
-    onSuccess: task => {
+    onSuccess: (task, { updatedTask }) => {
       const isSubTask =
         typeof task?.parentId === 'string' || typeof task?.parentId === 'number'
 
       if (isSubTask) {
-        queryClient.invalidateQueries(['tasks', `parentId=${task.parentId}`])
+        if (updatedTask.inMainView === undefined && !task.inMainView) {
+          queryClient.invalidateQueries(['tasks', `parentId=${task.parentId}`])
+        } else {
+          queryClient.invalidateQueries(['tasks', `parentId=${task.parentId}`])
+          queryClient.invalidateQueries('tasks')
+        }
       } else {
         queryClient.invalidateQueries('tasks')
       }
