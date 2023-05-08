@@ -1,0 +1,19 @@
+{
+  "notes": [],
+  "tasks": [],
+  "tags": [],
+  "projects": [],
+  "users": [
+    {
+      "id": "359051936857588309",
+      "name": "Caio Rocha",
+      "email": "kayoroxa@gmail.com",
+      "senha": "123456"
+    },
+    {
+      "name": "Herbert Artur",
+      "email": "herbert.artur18@gmail.com",
+      "senha": "herbert123"
+    }
+  ]
+}
