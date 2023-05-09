@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router'
 import { MdAddTask } from 'react-icons/md'
 import { VscNewFolder } from 'react-icons/vsc'
+import { AiOutlineAppstoreAdd } from 'react-icons/ai'
 import ButtonOp from '../atoms/ButtonOp'
 import SquareImg from '../atoms/SquareImg'
 import { useProjects } from '../hooks/useProjects'
@@ -61,7 +62,10 @@ export default function Header() {
             })
           }}
         >
-          <VscNewFolder size={30} className="group-hover:fill-green-400" />
+          <AiOutlineAppstoreAdd
+            size={30}
+            className="group-hover:fill-green-400"
+          />
         </ButtonOp>
 
         {/* <ButtonOp title="Add Project" onClick={() => {}} /> */}
