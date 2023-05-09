@@ -7,15 +7,15 @@ export interface StepTask {
 
   done?: boolean
 
-  dueDate?: string //timestamp
-  createdAt?: string //timestamp
-  updatedAt?: string //timestamp
+  dueDate?: number //timestamp
+  createdAt?: number //timestamp
+  updatedAt?: number //timestamp
 
   tags?: string[]
 
   folderId?: number | null //(referência a pasta que criou a tarefa)
 }
 
-export interface TaskCreate extends Omit<StepTask, 'id'> {
+export interface StepTaskCreate extends Omit<StepTask, 'id'> {
   id?: number
 }

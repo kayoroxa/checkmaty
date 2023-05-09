@@ -9,9 +9,9 @@ export interface Task {
 
   done?: boolean
 
-  dueDate?: string //timestamp
-  createdAt?: string //timestamp
-  updatedAt?: string //timestamp
+  dueDate?: number //timestamp
+  createdAt?: number //timestamp
+  updatedAt?: number //timestamp
 
   tags?: string[]
 

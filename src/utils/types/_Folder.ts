@@ -15,7 +15,7 @@ export interface Folder {
   projectId?: number | null //(referência ao projeto que criou a pasta)
 }
 
-export interface ProjectCreate extends Omit<Folder, 'id'> {
+export interface FolderCreate extends Omit<Folder, 'id'> {
   id?: number
   userId: string
 }
