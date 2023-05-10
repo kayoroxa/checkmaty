@@ -83,30 +83,64 @@ export default function WrapperTaskModal({
           {children}
         </section>
         <section className="flex-1 bg-slate-700 p-6 min-w-[300px] flex flex-col gap-5">
-          <Group title="Due date" value="Today">
+          <Group data={{ title: 'Due date', value: 'Today' }}>
             <AiOutlineCalendar size={20} className="fill-green-400" />
           </Group>
+
           <Group
-            title="relevance"
-            value={String(task.relevance || 0)}
-            slug="relevance"
+            data={{
+              title: 'relevance',
+              label: 'relevance',
+              value: task.relevance || 0,
+            }}
+            onChange={newData => {
+              updateTask({
+                id: taskSelected.id,
+                updatedTask: {
+                  relevance: Number(newData.value),
+                },
+              })
+            }}
           >
             <FaBullseye size={20} className="fill-yellow-400" />
           </Group>
+
           <Group
-            title="simplicity"
-            value={String(task.simplicity || 0)}
-            slug="simplicity"
+            data={{
+              title: 'simplicity',
+              label: 'simplicity',
+              value: task.simplicity || 0,
+            }}
+            onChange={newData => {
+              updateTask({
+                id: taskSelected.id,
+                updatedTask: {
+                  simplicity: Number(newData.value),
+                },
+              })
+            }}
           >
             <FaBolt size={20} className="fill-blue-400" />
           </Group>
+
           <Group
-            title="urgency"
-            value={String(task.urgency || 0)}
-            slug="urgency"
+            data={{
+              title: 'urgency',
+              label: 'urgency',
+              value: task.urgency || 0,
+            }}
+            onChange={newData => {
+              updateTask({
+                id: taskSelected.id,
+                updatedTask: {
+                  urgency: Number(newData.value),
+                },
+              })
+            }}
           >
             <FaFire size={20} className="fill-red-400 " />
           </Group>
+
           <h3>Show in dashboard</h3>
           <Toggle
             defaultValue={task.inMainView}

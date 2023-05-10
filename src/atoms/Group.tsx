@@ -1,45 +1,43 @@
 import { useEffect, useState } from 'react'
-import { useTasks } from '../hooks/useTasks'
-import { useTaskStore } from '../store/useTaskStore'
 import tableTrindade from '../utils/tableTrindade'
 import Input from './Input'
 
-type Slugs = 'relevance' | 'simplicity' | 'urgency'
+// type Slugs = 'relevance' | 'simplicity' | 'urgency'
+
+type Data = {
+  title?: string
+  value: number | string
+  label?: string
+}
 
 export default function Group({
   children,
-  title,
-  value: defaultValue,
-  slug,
+  onChange,
+  data,
 }: {
   children: React.ReactNode
-  title: string
-  value: string
-  slug?: Slugs
+  onChange?: (data: Data) => void
+  data: Data
 }) {
-  const { updateTask } = useTasks('359051936857588309')
-  const { taskSelected } = useTaskStore()
-  if (!taskSelected) return null
-
-  const [value, setValue] = useState<string>(defaultValue)
+  const [value, setValue] = useState<string>(String(data.value))
 
   useEffect(() => {
-    setValue(defaultValue)
-  }, [defaultValue])
+    setValue(String(data.value))
+  }, [data.value])
 
   let formatted = ''
 
-  if (slug === 'urgency') {
+  if (data.label === 'urgency') {
     formatted = tableTrindade.urgency[parseInt(value)]
   }
-  if (slug === 'simplicity') {
+  if (data.label === 'simplicity') {
     formatted = tableTrindade.simplicity[parseInt(value)]
   }
 
   return (
     <div className="border-b border-slate-500">
       <header className="flex gap-3">
-        <h2>{title}</h2>
+        <h2>{data.title}</h2>
         {formatted && formatted?.length > 0 && (
           <div className="dark:bg-slate-600 px-4">{formatted}</div>
         )}
@@ -48,9 +46,9 @@ export default function Group({
         {children}
         <Input
           onValueChange={newValue => {
-            updateTask({
-              id: taskSelected.id,
-              updatedTask: { [slug ? slug : title]: newValue },
+            onChange({
+              ...data,
+              value: Number(newValue),
             })
             setValue(newValue)
           }}
