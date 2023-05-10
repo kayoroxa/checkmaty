@@ -6,8 +6,8 @@ export interface Folder {
   relevance?: number
   urgency?: number
 
-  createdAt: number
-  updatedAt: number
+  createdAt?: number
+  updatedAt?: number
   createdByUserId: string //(referência ao usuário que criou a tarefa)
   accessUserIds: string[]
 

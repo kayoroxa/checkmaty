@@ -82,24 +82,30 @@ const TodoItem = ({ todo, onToggle }: { todo: Task; onToggle: any }) => {
           <section className="flex gap-2">
             <div
               className="flex gap-2"
-              style={{ opacity: getOpacity(todo.simplicity) }}
+              style={{ opacity: getOpacity(todo.simplicity || 0) }}
             >
               <FaBolt size={20} className="fill-blue-400 -mr-2" />
-              <p>{todo.simplicity === undefined ? 0 : todo.simplicity}</p>
+              <p>{todo.simplicity || 0}</p>
             </div>
             <div
               className="flex gap-2"
-              style={{ opacity: getOpacity(todo.relevance) }}
+              style={{
+                opacity: getOpacity(
+                  todo.folder?.relevance || todo.relevance || 0
+                ),
+              }}
             >
               <FaBullseye size={20} className="fill-yellow-400 -mr-1" />
-              <p>{todo.relevance === undefined ? 0 : todo.relevance}</p>
+              <p>{todo.folder?.relevance || todo.relevance || 0}</p>
             </div>
             <div
               className="flex gap-2"
-              style={{ opacity: getOpacity(todo.urgency) }}
+              style={{
+                opacity: getOpacity(todo.folder?.urgency || todo.urgency || 0),
+              }}
             >
               <FaFire size={20} className="fill-red-400 -mr-1" />
-              <p>{todo.urgency === undefined ? 0 : todo.urgency}</p>
+              <p>{todo.folder?.urgency || todo.urgency || 0}</p>
             </div>
           </section>
           <section>
@@ -115,6 +121,7 @@ const TodoItem = ({ todo, onToggle }: { todo: Task; onToggle: any }) => {
                   : myProject?.name}
               </Link>
             )}
+            {todo?.folder && <div>Folder: {todo.folder.title}</div>}
           </section>
         </footer>
       </section>

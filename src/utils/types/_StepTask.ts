@@ -1,3 +1,5 @@
+import { Folder } from './_Folder'
+
 export interface StepTask {
   id: number //(gerado automaticamente pelo FaunaDB)
   title: string
@@ -13,7 +15,8 @@ export interface StepTask {
 
   tags?: string[]
 
-  folderId?: number | null //(referência a pasta que criou a tarefa)
+  folderId: number //(referência a pasta que criou a tarefa)
+  folder?: Folder
 }
 
 export interface StepTaskCreate extends Omit<StepTask, 'id'> {

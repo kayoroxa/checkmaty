@@ -1,5 +1,4 @@
 import { Task } from './types/_Task'
-
 interface Metric {
   relevance: number
   simplicity: number
@@ -19,19 +18,26 @@ export function getScore(p: Metric) {
   return score.reduce((a, b) => a + b)
 }
 
+interface Sortable {
+  relevance?: number
+  simplicity?: number
+  urgency?: number
+}
+
 export function sortScoredTasks(tasks: Task[]) {
-  return tasks.sort((a, b) => {
+  const sorted = tasks.sort((a, b) => {
     const scoreA = getScore({
-      relevance: a.relevance || 0,
+      relevance: Number(a.folder?.relevance || a.relevance || 0),
       simplicity: a.simplicity || 0,
-      urgency: a.urgency || 0,
+      urgency: Number(a.folder?.urgency || a.urgency || 0),
     })
     const scoreB = getScore({
-      relevance: b.relevance || 0,
+      relevance: Number(b.folder?.relevance || b.relevance || 0),
       simplicity: b.simplicity || 0,
-      urgency: b.urgency || 0,
+      urgency: Number(b.folder?.urgency || b.urgency || 0),
     })
-
     return scoreB - scoreA
   })
+
+  return sorted
 }
