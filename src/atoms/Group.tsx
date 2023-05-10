@@ -46,10 +46,12 @@ export default function Group({
         {children}
         <Input
           onValueChange={newValue => {
-            onChange({
-              ...data,
-              value: Number(newValue),
-            })
+            if (onChange) {
+              onChange({
+                ...data,
+                value: Number(newValue),
+              })
+            }
             setValue(newValue)
           }}
           value={value}
