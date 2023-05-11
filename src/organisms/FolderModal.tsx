@@ -84,7 +84,7 @@ function FolderModal({ ...wrapperProps }: Props) {
       />
       {stepTasks && (
         <div className="border-t border-gray-200 mt-4 pt-4">
-          <h3 className="text-2xl font-medium mb-2">Subfolders:</h3>
+          <h3 className="text-2xl font-medium mb-2">StepTasks:</h3>
           <ul className="list-disc pl-4 flex flex-col gap-4 w-full">
             {stepTasks.map((stepTask, i) => (
               <TodoItem

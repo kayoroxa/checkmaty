@@ -8,8 +8,8 @@ export interface Folder {
 
   createdAt?: number
   updatedAt?: number
-  createdByUserId: string //(referência ao usuário que criou a tarefa)
-  accessUserIds: string[]
+  // createdByUserId: string //(referência ao usuário que criou a tarefa)
+  // accessUserIds: string[]
 
   tasksInMainView?: boolean
   projectId?: number | null //(referência ao projeto que criou a pasta)

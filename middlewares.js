@@ -36,7 +36,7 @@ function getStepTasks() {
   })
 
   const allTasksWithExtendFolder = foldersDashBoard.map(folder => {
-    const task = jsonDb.stepTasks
+    const task = jsonDb.tasks
       .filter(task => task?.folderId === folder.id && !task?.done)
       ?.sort((a, b) => {
         return a.order - b.order

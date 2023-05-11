@@ -1,9 +1,10 @@
 import { useRouter } from 'next/router'
+import { AiOutlineAppstoreAdd } from 'react-icons/ai'
 import { MdAddTask } from 'react-icons/md'
 import { VscNewFolder } from 'react-icons/vsc'
-import { AiOutlineAppstoreAdd } from 'react-icons/ai'
 import ButtonOp from '../atoms/ButtonOp'
 import SquareImg from '../atoms/SquareImg'
+import { useFolders } from '../hooks/useFolders'
 import { useProjects } from '../hooks/useProjects'
 import { useTasks } from '../hooks/useTasks'
 import { useTaskStore } from '../store/useTaskStore'
@@ -12,6 +13,7 @@ import { TaskCreate } from '../utils/types/_Task'
 export default function Header() {
   const { createTask } = useTasks('359051936857588309')
   const { createProject } = useProjects('359051936857588309')
+  const { createFolder } = useFolders('359051936857588309')
   const { setTaskSelected } = useTaskStore()
 
   const { query, asPath } = useRouter()
@@ -43,6 +45,50 @@ export default function Header() {
           }}
         >
           <MdAddTask size={30} className="group-hover:fill-green-400" />
+        </ButtonOp>
+
+        <ButtonOp
+          title="Add Folder"
+          onClick={async () => {
+            // createFolder({
+            //   tasksInMainView: true,
+            //   title: 'New folder',
+            //   userId: '359051936857588309',
+            //   updatedAt: new Date().getTime(),
+            //   createdAt: new Date().getTime(),
+            //   description: '',
+            //   createdByUserId: '359051936857588309',
+            //   accessUserIds: [],
+            // })
+
+            const data: TaskCreate = {
+              title: 'New Folder',
+              description: '',
+              userId: '359051936857588309',
+              inMainView: true,
+              done: false,
+            }
+
+            if (typeof query.id === 'string' && asPath.includes('project')) {
+              data.projectId = parseInt(query.id)
+              data.inMainView = false
+            }
+
+            if (asPath.includes('inbox')) {
+              data.inMainView = false
+            }
+
+            createFolder({
+              description: '',
+              title: 'New Folder',
+              userId: '359051936857588309',
+              createdAt: new Date().getTime(),
+              updatedAt: new Date().getTime(),
+              tasksInMainView: true,
+            })
+          }}
+        >
+          <VscNewFolder size={30} className="group-hover:fill-green-400" />
         </ButtonOp>
 
         <ButtonOp

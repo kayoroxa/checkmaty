@@ -36,9 +36,8 @@ export const useFolders = (userId: string) => {
       return data
     },
     {
-      onSuccess: project => {
+      onSuccess: () => {
         queryClient.invalidateQueries(['folders'])
-        router.push(`/project/${project.id}`)
       },
     }
   )
