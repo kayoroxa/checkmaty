@@ -24,7 +24,7 @@ function TaskModal() {
     resetTaskSelectedHistoric,
   } = useTaskStore()
 
-  const { tasks: subtasks } = useTasks('359051936857588309', {
+  const { tasks: subtasks, deleteTask } = useTasks('359051936857588309', {
     parentId: task?.id,
   })
 
@@ -36,6 +36,9 @@ function TaskModal() {
       onRequestClose={() => {
         setTaskSelected(null)
         resetTaskSelectedHistoric()
+      }}
+      onDelete={() => {
+        deleteTask(String(task.id))
       }}
       task={{
         ...task,

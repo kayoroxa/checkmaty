@@ -4,13 +4,14 @@ import { queryClient } from '../pages/_app'
 import { axiosApi } from '../utils/axiosApi'
 import { Folder } from '../utils/types/_Folder'
 import { StepTask, StepTaskCreate } from '../utils/types/_StepTask'
+import { useFolderStore } from './../store/useFolderStore'
 
 type Type = Folder
 
-export const useFolder = (id: Type['id']) => {
+export const useFolder = (id?: Type['id']) => {
   const folderUrl = `/folders/${id}`
   const router = useRouter()
-
+  const { setFolderSelected } = useFolderStore()
   const {
     data: folder,
     isLoading: isFolderLoading,
@@ -63,6 +64,11 @@ export const useFolder = (id: Type['id']) => {
     {
       onSuccess: () => {
         queryClient.invalidateQueries('folders')
+        queryClient.invalidateQueries('stepTasks')
+        queryClient.invalidateQueries('tasks')
+
+        debugger
+        setFolderSelected(null)
         router.push('/')
       },
     }
@@ -102,10 +108,11 @@ export const useFolder = (id: Type['id']) => {
   } = useMutation(
     async (newTask: StepTaskCreate) => {
       const { data } = await axiosApi.post<Folder>('/tasks', newTask)
+
       return data
     },
     {
-      onSuccess: () => {
+      onSuccess: data => {
         queryClient.invalidateQueries(['stepTasks'])
         queryClient.invalidateQueries(['tasks'])
       },

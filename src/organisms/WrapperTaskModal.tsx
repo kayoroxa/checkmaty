@@ -27,7 +27,8 @@ interface Props {
   isOpen: boolean
   onRequestClose: () => void
   task: TaskModalProps & Partial<Task>
-  onChange?: (data: OnChangeData) => void
+  onChange: (data: OnChangeData) => void
+  onDelete: (id: Task['id']) => void
   // onChange?: (task: TaskModalProps & Partial<Task>) => void
 }
 
@@ -37,6 +38,7 @@ export default function WrapperTaskModal({
   onRequestClose,
   task,
   onChange,
+  onDelete,
 }: Props) {
   const { taskSelectedHistoric, setTaskSelected, setTaskSelectedHistoric } =
     useTaskStore()
@@ -210,7 +212,11 @@ export default function WrapperTaskModal({
             <BsFillTrashFill
               size={30}
               className="hover:cursor-pointer fill-red-500 hover:fill-red-500 opacity-40 hover:opacity-100"
-              onClick={() => deleteTask(String(task.id))}
+              onClick={() => {
+                if (task?.id && onDelete) {
+                  onDelete(task.id)
+                }
+              }}
             />
             <ActionButton
               onClick={() => {

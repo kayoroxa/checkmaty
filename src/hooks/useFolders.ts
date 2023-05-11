@@ -3,10 +3,11 @@ import { useMutation, useQuery } from 'react-query'
 import { queryClient } from '../pages/_app'
 import { axiosApi } from '../utils/axiosApi'
 import { Folder, FolderCreate } from '../utils/types/_Folder'
+import { useFolderStore } from './../store/useFolderStore'
 
 export const useFolders = (userId: string) => {
   const foldersUrl = `/folders?userId=${userId}`
-
+  const { setFolderSelected } = useFolderStore()
   const {
     data: folders,
     isLoading: isFoldersLoading,
@@ -32,12 +33,18 @@ export const useFolders = (userId: string) => {
     error: createFolderError,
   } = useMutation(
     async (newFolder: FolderCreate) => {
+      console.log('colocando nova folder')
       const { data } = await axiosApi.post<Folder>('/folders', newFolder)
       return data
     },
     {
-      onSuccess: () => {
+      onSuccess: (data, variables, context) => {
+        console.log('Sucess create folder')
+
+        setFolderSelected(data)
         queryClient.invalidateQueries(['folders'])
+        queryClient.invalidateQueries(['stepTasks'])
+        queryClient.invalidateQueries(['tasks'])
       },
     }
   )

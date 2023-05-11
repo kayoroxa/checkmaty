@@ -19,12 +19,11 @@ function FolderModal({ ...wrapperProps }: Props) {
   const { folderSelected: folder, setFolderSelected } = useFolderStore()
 
   // const { folders: subfolders } = useFolders('359051936857588309')
-  const { updateFolder, createStepTask, stepTasks } = useFolder(
-    folder?.id || -1
+  const { updateFolder, createStepTask, stepTasks, deleteFolder } = useFolder(
+    folder?.id
   )
 
   if (!folder) return null
-  if (folder?.id === undefined) return null
 
   return (
     <WrapperTaskModal
@@ -32,6 +31,9 @@ function FolderModal({ ...wrapperProps }: Props) {
       isOpen={true}
       onRequestClose={() => {
         setFolderSelected(null)
+      }}
+      onDelete={() => {
+        deleteFolder()
       }}
       task={{
         title: folder.title,

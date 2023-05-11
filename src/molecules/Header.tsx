@@ -50,34 +50,6 @@ export default function Header() {
         <ButtonOp
           title="Add Folder"
           onClick={async () => {
-            // createFolder({
-            //   tasksInMainView: true,
-            //   title: 'New folder',
-            //   userId: '359051936857588309',
-            //   updatedAt: new Date().getTime(),
-            //   createdAt: new Date().getTime(),
-            //   description: '',
-            //   createdByUserId: '359051936857588309',
-            //   accessUserIds: [],
-            // })
-
-            const data: TaskCreate = {
-              title: 'New Folder',
-              description: '',
-              userId: '359051936857588309',
-              inMainView: true,
-              done: false,
-            }
-
-            if (typeof query.id === 'string' && asPath.includes('project')) {
-              data.projectId = parseInt(query.id)
-              data.inMainView = false
-            }
-
-            if (asPath.includes('inbox')) {
-              data.inMainView = false
-            }
-
             createFolder({
               description: '',
               title: 'New Folder',
