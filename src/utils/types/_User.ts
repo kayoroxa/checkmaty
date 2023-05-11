@@ -6,6 +6,8 @@ export interface User {
   dailyScore: number
   lastScoreDate: string
   dailyGoal: number
+  userName: string
+  imgUrl: string
 }
 
 //Update(Ref(Collection("users"), "123"), { data: { dailyScore: 5 } })

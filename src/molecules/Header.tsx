@@ -2,13 +2,16 @@ import { useRouter } from 'next/router'
 import { AiOutlineAppstoreAdd } from 'react-icons/ai'
 import { MdAddTask } from 'react-icons/md'
 import { VscNewFolder } from 'react-icons/vsc'
+import { useQuery } from 'react-query'
 import ButtonOp from '../atoms/ButtonOp'
 import SquareImg from '../atoms/SquareImg'
 import { useFolders } from '../hooks/useFolders'
 import { useProjects } from '../hooks/useProjects'
 import { useTasks } from '../hooks/useTasks'
 import { useTaskStore } from '../store/useTaskStore'
+import { axiosApi } from '../utils/axiosApi'
 import { TaskCreate } from '../utils/types/_Task'
+import { User } from '../utils/types/_User'
 
 export default function Header() {
   const { createTask } = useTasks('359051936857588309')
@@ -17,6 +20,11 @@ export default function Header() {
   const { setTaskSelected } = useTaskStore()
 
   const { query, asPath } = useRouter()
+
+  const { data: user } = useQuery<User>(['user'], async () => {
+    const { data } = await axiosApi.get<User[]>('/users')
+    return data[0]
+  })
 
   return (
     <header className="w-full px-8 py-2 dark:bg-slate-700  shadow-2xl flex justify-end items-center gap-3">
@@ -89,10 +97,15 @@ export default function Header() {
         {/* <ButtonOp title="Add Project" onClick={() => {}} /> */}
       </section>
       <div className="-mt-2">
-        <h1 className="text-xl">Caio Rocha</h1>
-        <p className="text-sm">@kayoroxa</p>
+        <h1 className="text-xl">{user?.name}</h1>
+        <p className="text-sm">@{user?.userName}</p>
       </div>
-      <SquareImg src="https://avatars.githubusercontent.com/u/54248474?v=4" />
+      <SquareImg
+        src={
+          user?.imgUrl ||
+          'https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png'
+        }
+      />
     </header>
   )
 }
