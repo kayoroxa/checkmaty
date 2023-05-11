@@ -9,6 +9,7 @@ export interface Task_raw {
   urgency?: number
 
   done?: boolean
+  doneDate?: number
 
   dueDate?: number //timestamp
   createdAt?: number //timestamp

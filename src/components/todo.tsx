@@ -28,7 +28,19 @@ const TodoItem = ({ todo, onToggle }: { todo: Task; onToggle: any }) => {
 
   const handleToggle = () => {
     onToggle(todo)
-    updateTask({ id: todo.id, updatedTask: { done: !todo.done } })
+
+    const updateData: { id: number; updatedTask: Partial<Task> } = {
+      id: todo.id,
+      updatedTask: {
+        done: !todo.done,
+        updatedAt: new Date().getTime(),
+        // doneDate: todo.done ? new Date().getTime() : undefined,
+      },
+    }
+    if (!todo.done) {
+      updateData.updatedTask.doneDate = new Date().getTime()
+    }
+    updateTask(updateData)
   }
 
   const projects =

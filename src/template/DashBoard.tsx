@@ -37,7 +37,12 @@ export default function DashBoard({
         .slice(0, slice)
 
       const filteredDoneToday = tasksNormal
-        .filter((t: Task) => t.done)
+        .filter(
+          (t: Task) =>
+            t.done &&
+            t.doneDate &&
+            new Date().getDate() === new Date(t.doneDate).getDate()
+        )
         .slice(0, 9)
 
       setFilteredTasks(filteredTodo)
