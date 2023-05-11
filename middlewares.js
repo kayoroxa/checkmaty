@@ -35,17 +35,28 @@ function getStepTasks() {
     return folder.tasksInMainView === true
   })
 
-  const allTasksWithExtendFolder = foldersDashBoard.map(folder => {
-    const task = jsonDb.tasks
+  const allTasksWithExtendFolder = []
+
+  foldersDashBoard.forEach(folder => {
+    const nextTask = jsonDb.tasks
       .filter(task => task?.folderId === folder.id && !task?.done)
       ?.sort((a, b) => {
         return a.order - b.order
       })?.[0]
 
-    return {
-      ...task,
+    const doneTasks = jsonDb.tasks
+      .filter(task => task?.folderId === folder.id && task?.done)
+      .map(task => ({
+        ...task,
+        folder: folder,
+      }))
+
+    allTasksWithExtendFolder.push({
+      ...nextTask,
       folder: folder,
-    }
+    })
+
+    allTasksWithExtendFolder.push(...doneTasks)
   })
 
   return allTasksWithExtendFolder

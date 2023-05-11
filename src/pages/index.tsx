@@ -26,7 +26,6 @@ const Home: NextPage = () => {
   if (stepTasks) tasks = [...tasks, ...stepTasks]
   if (dataTasks?.tasks) tasks = [...tasks, ...dataTasks?.tasks]
 
-  console.log(tasks)
   return (
     <>
       <DashBoard

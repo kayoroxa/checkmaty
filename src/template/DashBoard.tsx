@@ -36,14 +36,12 @@ export default function DashBoard({
         .filter(t => !t.done)
         .slice(0, slice)
 
-      const filteredDoneToday = tasksNormal
-        .filter(
-          (t: Task) =>
-            t.done &&
-            t.doneDate &&
-            new Date().getDate() === new Date(t.doneDate).getDate()
-        )
-        .slice(0, 9)
+      const filteredDoneToday = tasksNormal.filter(
+        (t: Task) =>
+          t.done &&
+          t.doneDate &&
+          new Date().getDate() === new Date(t.doneDate).getDate()
+      )
 
       setFilteredTasks(filteredTodo)
       setFilteredDoneToday(filteredDoneToday)
@@ -55,7 +53,6 @@ export default function DashBoard({
       <WrapperApp>
         {(isTasksLoading || isLoading) && <p>Loading...</p>}
         {isTasksError && <p>Error não conseguindo carregar os tarefas</p>}
-
         {projectsData?.[0] && (
           <Container title="Projects:">
             {projectsData?.map((project: any, i: number) => (
@@ -86,9 +83,32 @@ export default function DashBoard({
             </Container>
           </>
         )}
+        <div className="flex gap-4">
+          <div>
+            Simplicity:{' '}
+            {filteredDoneToday?.reduce(
+              (a, b) => (b.simplicity ? a + b.simplicity : a),
+              0
+            )}
+          </div>
+          <div>
+            Urgency:{' '}
+            {filteredDoneToday?.reduce(
+              (a, b) => (b.urgency ? a + b.urgency : a),
+              0
+            )}
+          </div>
+          <div>
+            Relevance:{' '}
+            {filteredDoneToday?.reduce(
+              (a, b) => (b.relevance ? a + b.relevance : a),
+              0
+            )}
+          </div>
+        </div>
         {filteredDoneToday && (
           <Container title="Done Today:" grid={true}>
-            {filteredDoneToday.map((todo: Task, i: number) => (
+            {filteredDoneToday.slice(0, 9).map((todo: Task, i: number) => (
               <TodoItem key={i} todo={todo} onToggle={() => {}} />
             ))}
           </Container>
