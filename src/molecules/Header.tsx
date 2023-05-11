@@ -35,13 +35,13 @@ export default function Header() {
             const data: TaskCreate = {
               title: 'New task',
               description: '',
-              userId: '359051936857588309',
+              user_id: '359051936857588309',
               inMainView: true,
               done: false,
             }
 
             if (typeof query.id === 'string' && asPath.includes('project')) {
-              data.projectId = parseInt(query.id)
+              data.project_id = parseInt(query.id)
               data.inMainView = false
             }
 
@@ -61,7 +61,7 @@ export default function Header() {
             createFolder({
               description: '',
               title: 'New Folder',
-              userId: '359051936857588309',
+              user_id: '359051936857588309',
               createdAt: new Date().getTime(),
               updatedAt: new Date().getTime(),
               tasksInMainView: true,
@@ -84,7 +84,7 @@ export default function Header() {
               coverImg:
                 'https://installnet.com/wp-content/themes/u-design/assets/images/placeholders/post-placeholder.jpg',
               accessUserIds: [],
-              userId: '359051936857588309',
+              user_id: '359051936857588309',
             })
           }}
         >

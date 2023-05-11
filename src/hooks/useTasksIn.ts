@@ -3,13 +3,13 @@ import { axiosApi } from '../utils/axiosApi'
 import { Task } from '../utils/types/_Task'
 
 type Filter = {
-  userId?: string
+  user_id?: string
   inMainView?: boolean
-  projectId?: number
+  project_id?: number
   tagId?: string
 }
 
-export const useTasksIn = (userId: string, filter: Filter) => {
+export const useTasksIn = (user_id: string, filter: Filter) => {
   const queryParams = Object.entries(filter)
     .map(([key, value]) => `${key}=${value}`)
     .join('&')
@@ -30,7 +30,7 @@ export const useTasksIn = (userId: string, filter: Filter) => {
     },
     {
       staleTime: 1000 * 60 * 2,
-      enabled: !!userId,
+      enabled: !!user_id,
     }
   )
 

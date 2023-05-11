@@ -17,11 +17,11 @@ export interface Task_raw {
 
   tags?: string[]
 
-  userId?: string //(referência ao usuário que criou a tarefa)
+  user_id?: string //(referência ao usuário que criou a tarefa)
 
   inMainView?: boolean
   parentId?: number | null
-  projectId?: number | null //(referência ao projeto que criou a tarefa)
+  project_id?: number | null //(referência ao projeto que criou a tarefa)
 }
 
 export type Task = Task_raw & Partial<StepTask>

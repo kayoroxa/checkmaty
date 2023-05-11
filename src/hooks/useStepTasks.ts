@@ -3,7 +3,7 @@ import { queryClient } from '../pages/_app'
 import { axiosApi } from '../utils/axiosApi'
 import { StepTask, StepTaskCreate } from '../utils/types/_StepTask'
 
-function get(url: string, userId: string, key: string | string[]) {
+function get(url: string, user_id: string, key: string | string[]) {
   return useQuery<StepTask[]>(
     key,
     async () => {
@@ -12,12 +12,12 @@ function get(url: string, userId: string, key: string | string[]) {
     },
     {
       staleTime: 1000 * 60 * 2,
-      enabled: !!userId,
+      enabled: !!user_id,
     }
   )
 }
 
-export const useStepTasks = (userId: string, options?: Partial<StepTask>) => {
+export const useStepTasks = (user_id: string, options?: Partial<StepTask>) => {
   const optionsQuery =
     options &&
     Object.entries(options)
@@ -33,8 +33,8 @@ export const useStepTasks = (userId: string, options?: Partial<StepTask>) => {
     isError: isStepTasksError,
     error: stepTasksError,
   } = optionsQuery
-    ? get(`/stepTasks?${optionsQuery}`, userId, ['stepTasks', optionsQuery])
-    : get(`/stepTasks`, userId, ['stepTasks'])
+    ? get(`/stepTasks?${optionsQuery}`, user_id, ['stepTasks', optionsQuery])
+    : get(`/stepTasks`, user_id, ['stepTasks'])
 
   const {
     mutate: createStepTask,
@@ -75,7 +75,7 @@ export const useStepTasks = (userId: string, options?: Partial<StepTask>) => {
     onSuccess: stepTask => {
       queryClient.invalidateQueries([
         'stepTasks',
-        `parentId=${stepTask.folderId}`,
+        `parentId=${stepTask.folder_id}`,
       ])
       queryClient.invalidateQueries('stepTasks')
     },

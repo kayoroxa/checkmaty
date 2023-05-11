@@ -40,8 +40,8 @@ export const useFolder = (id?: Type['id']) => {
     ['stepTasks', id],
     async () => {
       const get = axiosApi.get<StepTask[]>
-      const { data } = await get(`/tasks?folderId=${id}&_sort=order`)
-      // const { data } = await get(`/steptasks?folderId=${id}&_sort=order`)
+      const { data } = await get(`/tasks?folder_id=${id}&_sort=order`)
+      // const { data } = await get(`/steptasks?folder_id=${id}&_sort=order`)
 
       return data || null
     },

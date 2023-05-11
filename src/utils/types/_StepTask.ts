@@ -15,7 +15,7 @@ export interface StepTask {
 
   tags?: string[]
 
-  folderId: number //(referência a pasta que criou a tarefa)
+  folder_id: number //(referência a pasta que criou a tarefa)
   folder?: Folder
 }
 

@@ -47,7 +47,7 @@ const TodoItem = ({ todo, onToggle }: { todo: Task; onToggle: any }) => {
     (queryClient.getQueryState('projects')?.data as Project[]) || []
 
   const myProject = projects?.find(
-    (project: any) => project.id === todo.projectId
+    (project: any) => project.id === todo.project_id
   )
 
   const { setTaskSelected, addTaskSelectedHistoric } = useTaskStore()

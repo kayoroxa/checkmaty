@@ -16,5 +16,5 @@ export interface Project {
 
 export interface ProjectCreate extends Omit<Project, 'id'> {
   id?: number
-  userId: string
+  user_id: string
 }

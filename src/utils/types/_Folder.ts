@@ -12,10 +12,10 @@ export interface Folder {
   // accessUserIds: string[]
 
   tasksInMainView?: boolean
-  projectId?: number | null //(referência ao projeto que criou a pasta)
+  project_id?: number | null //(referência ao projeto que criou a pasta)
 }
 
 export interface FolderCreate extends Omit<Folder, 'id'> {
   id?: number
-  userId: string
+  user_id: string
 }

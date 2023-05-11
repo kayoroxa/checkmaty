@@ -11,7 +11,7 @@ export default function Project() {
   if (typeof id === 'string' || typeof id === 'number') {
     const data = useTasks('359051936857588309')
 
-    return <ProjectTemplate projectId={parseInt(id)} data={data} />
+    return <ProjectTemplate project_id={parseInt(id)} data={data} />
   }
   return <h1>Some Error..</h1>
 }

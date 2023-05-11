@@ -5,8 +5,8 @@ import { axiosApi } from '../utils/axiosApi'
 import { Folder, FolderCreate } from '../utils/types/_Folder'
 import { useFolderStore } from './../store/useFolderStore'
 
-export const useFolders = (userId: string) => {
-  const foldersUrl = `/folders?userId=${userId}`
+export const useFolders = (user_id: string) => {
+  const foldersUrl = `/folders?user_id=${user_id}`
   const { setFolderSelected } = useFolderStore()
   const {
     data: folders,
@@ -21,7 +21,7 @@ export const useFolders = (userId: string) => {
     },
     {
       staleTime: 1000 * 60 * 2,
-      enabled: !!userId,
+      enabled: !!user_id,
     }
   )
   const router = useRouter()

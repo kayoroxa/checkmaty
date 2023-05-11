@@ -5,7 +5,7 @@ export default function Inbox() {
   const data = useTasks('359051936857588309', {
     inMainView: false,
     parentId: null,
-    projectId: null,
+    project_id: null,
   })
 
   return (

@@ -4,8 +4,8 @@ import { queryClient } from '../pages/_app'
 import { axiosApi } from '../utils/axiosApi'
 import { Project, ProjectCreate } from '../utils/types/_Project'
 
-export const useProjects = (userId: string) => {
-  const projectsUrl = `/projects?userId=${userId}`
+export const useProjects = (user_id: string) => {
+  const projectsUrl = `/projects?user_id=${user_id}`
 
   const {
     data: projects,
@@ -16,11 +16,12 @@ export const useProjects = (userId: string) => {
     'projects',
     async () => {
       const { data } = await axiosApi.get<Project[]>(projectsUrl)
+      debugger
       return data
     },
     {
       staleTime: 1000 * 60 * 2,
-      enabled: !!userId,
+      enabled: !!user_id,
     }
   )
   const router = useRouter()

@@ -50,7 +50,7 @@ const fake = [
     priority: 10,
     simplicity: 5,
     done: true,
-    userId: '359051936857588309',
+    user_id: '359051936857588309',
     inMainView: true,
     tags: [
       {
@@ -78,7 +78,7 @@ const fake = [
     simplicity: 5,
     done: true,
     inMainView: true,
-    userId: '359051936857588309',
+    user_id: '359051936857588309',
     tagsId: ['359147022097318485'],
   },
   {
@@ -89,7 +89,7 @@ const fake = [
     simplicity: 5,
     done: true,
     inMainView: true,
-    userId: '359051936857588309',
+    user_id: '359051936857588309',
   },
   {
     id: '359496038749307469',
@@ -99,7 +99,7 @@ const fake = [
     simplicity: 5,
     done: true,
     inMainView: true,
-    userId: '359051936857588309',
+    user_id: '359051936857588309',
   },
 ]
 
@@ -130,8 +130,8 @@ async function getTasks(req: NextApiRequest, res: NextApiResponse) {
   }
 
   //get id by query url
-  const { userId } = req.query
-  if (typeof userId !== 'string') {
+  const { user_id } = req.query
+  if (typeof user_id !== 'string') {
     res.status(500).json({ error: 'Need User ID' })
     return
   }
@@ -139,7 +139,7 @@ async function getTasks(req: NextApiRequest, res: NextApiResponse) {
   try {
     const response: any = await faunaClient.query(
       q.Map(
-        q.Paginate(q.Match(q.Index('tasks_by_user_id'), userId)),
+        q.Paginate(q.Match(q.Index('tasks_by_user_id'), user_id)),
         q.Lambda('X', q.Get(q.Var('X')))
       )
     )

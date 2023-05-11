@@ -11,13 +11,13 @@ import WrapperApp from '../organisms/WrapperApp'
 import { Task } from '../utils/types/_Task'
 
 interface IProps {
-  projectId: number
+  project_id: number
   data: any
 }
 
-export default function ProjectTemplate({ projectId }: IProps) {
-  const { project, deleteProject, updateProject } = useProject(projectId)
-  const data = useTasksIn('359051936857588309', { projectId: projectId })
+export default function ProjectTemplate({ project_id }: IProps) {
+  const { project, deleteProject, updateProject } = useProject(project_id)
+  const data = useTasksIn('359051936857588309', { project_id: project_id })
   const projectData = project
   const [modalIsOpen, setModalIsOpen] = useState<number | false>(false)
 
@@ -36,7 +36,7 @@ export default function ProjectTemplate({ projectId }: IProps) {
                   inputValue={projectData.coverImg}
                   onInputValueChange={text => {
                     updateProject({
-                      id: projectId,
+                      id: project_id,
                       updatedTask: { coverImg: text },
                     })
                   }}
@@ -52,7 +52,7 @@ export default function ProjectTemplate({ projectId }: IProps) {
                 inputValue={projectData.imgUrl}
                 onInputValueChange={text => {
                   updateProject({
-                    id: projectId,
+                    id: project_id,
                     updatedTask: { imgUrl: text },
                   })
                 }}
@@ -65,7 +65,7 @@ export default function ProjectTemplate({ projectId }: IProps) {
                 value={projectData.name}
                 className="text-5xl"
                 onValueChange={text => {
-                  updateProject({ id: projectId, updatedTask: { name: text } })
+                  updateProject({ id: project_id, updatedTask: { name: text } })
                 }}
               />
             </header>

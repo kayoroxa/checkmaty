@@ -43,12 +43,12 @@ export default async function handler(
 }
 
 async function getProjects(req: NextApiRequest, res: NextApiResponse) {
-  const { userId, id } = req.query
-  if (userId) {
+  const { user_id, id } = req.query
+  if (user_id) {
     try {
       const response: any = await faunaClient.query(
         q.Map(
-          q.Paginate(q.Match(q.Index('projects_by_accessUserIds'), userId)),
+          q.Paginate(q.Match(q.Index('projects_by_accessUserIds'), user_id)),
           q.Lambda('x', q.Get(q.Var('x')))
         )
       )
@@ -83,7 +83,7 @@ async function getProjects(req: NextApiRequest, res: NextApiResponse) {
     return
   }
 
-  res.status(400).json({ error: 'userId or id is required' })
+  res.status(400).json({ error: 'user_id or id is required' })
 }
 
 async function createProject(req: NextApiRequest, res: NextApiResponse) {

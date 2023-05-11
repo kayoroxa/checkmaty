@@ -4,7 +4,7 @@ import { useTaskStore } from '../store/useTaskStore'
 import { axiosApi } from '../utils/axiosApi'
 import { Task, TaskCreate } from '../utils/types/_Task'
 
-function get(url: string, userId: string, key: string | string[]) {
+function get(url: string, user_id: string, key: string | string[]) {
   return useQuery<Task[]>(
     key,
     async () => {
@@ -13,12 +13,12 @@ function get(url: string, userId: string, key: string | string[]) {
     },
     {
       staleTime: 1000 * 60 * 2,
-      enabled: !!userId,
+      enabled: !!user_id,
     }
   )
 }
 
-export const useTasks = (userId: string, options?: Partial<Task>) => {
+export const useTasks = (user_id: string, options?: Partial<Task>) => {
   const optionsQuery =
     options &&
     Object.entries(options)
@@ -34,8 +34,8 @@ export const useTasks = (userId: string, options?: Partial<Task>) => {
     isError: isTasksError,
     error: tasksError,
   } = optionsQuery
-    ? get(`/tasks?${optionsQuery}`, userId, ['tasks', optionsQuery])
-    : get(`/tasks`, userId, ['tasks'])
+    ? get(`/tasks?${optionsQuery}`, user_id, ['tasks', optionsQuery])
+    : get(`/tasks`, user_id, ['tasks'])
 
   const {
     setTaskSelected,

@@ -55,7 +55,7 @@ export default function WrapperTaskModal({
   //     return prevHistoric
   //   })
   // }, [])
-  const isStepTask = typeof task.folderId === 'number'
+  const isStepTask = typeof task.folder_id === 'number'
 
   // onkeydown
 

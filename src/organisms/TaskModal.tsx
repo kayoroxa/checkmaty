@@ -85,7 +85,7 @@ function TaskModal() {
           const newTask = await createTask({
             title: 'New task',
             description: '',
-            userId: '359051936857588309',
+            user_id: '359051936857588309',
             inMainView: false,
             done: false,
             parentId: task.id,

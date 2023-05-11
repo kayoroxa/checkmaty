@@ -10,7 +10,7 @@ import { Task } from '../utils/types/_Task'
 const options = {
   method: 'GET',
   headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ userId: '359051936857588309' }),
+  body: JSON.stringify({ user_id: '359051936857588309' }),
 }
 
 const Home: NextPage = () => {

@@ -80,7 +80,7 @@ function FolderModal({ ...wrapperProps }: Props) {
             title: 'New Step Task',
             description: '',
             done: false,
-            folderId: folder.id,
+            folder_id: folder.id,
           })
         }}
       />
