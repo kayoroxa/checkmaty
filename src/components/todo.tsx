@@ -127,7 +127,7 @@ const TodoItem = ({ todo, onToggle }: { todo: Task; onToggle: any }) => {
                   : myProject?.name}
               </Link>
             )}
-            {todo?.folder && <div>Folder: {todo.folder.title}</div>}
+            {todo?.folder && <div>📁 {todo.folder.title}</div>}
           </section>
         </footer>
       </section>

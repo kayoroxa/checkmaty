@@ -108,15 +108,15 @@ export default function ProjectTemplate({ projectId }: IProps) {
       </WrapperApp>
       {data.tasks && (
         <TaskModal
-          isOpen={modalIsOpen !== false}
-          onRequestClose={() => {
-            setModalIsOpen(false)
-          }}
-          task={
-            typeof modalIsOpen === 'number'
-              ? data.tasks[modalIsOpen]
-              : data.tasks[0]
-          }
+        // isOpen={modalIsOpen !== false}
+        // onRequestClose={() => {
+        //   setModalIsOpen(false)
+        // }}
+        // task={
+        //   typeof modalIsOpen === 'number'
+        //     ? data.tasks[modalIsOpen]
+        //     : data.tasks[0]
+        // }
         />
       )}
     </>

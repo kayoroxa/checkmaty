@@ -1,7 +1,9 @@
+import { KeyboardEvent, useEffect } from 'react'
 import { AiOutlineCalendar } from 'react-icons/ai'
+import { BsFillTrashFill } from 'react-icons/bs'
 import { FaBolt, FaBullseye, FaFire, FaWindowClose } from 'react-icons/fa'
 import Modal from 'react-modal'
-import DeleteButton from '../atoms/DeleteButton'
+import ActionButton from '../atoms/DeleteButton'
 import Group from '../atoms/Group'
 import Toggle from '../atoms/Toggle'
 import { useTasks } from '../hooks/useTasks'
@@ -52,6 +54,19 @@ export default function WrapperTaskModal({
   //   })
   // }, [])
   const isStepTask = typeof task.folderId === 'number'
+
+  // onkeydown
+
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+      if (e.key === 'Escape') {
+        onRequestClose()
+      }
+    }
+    window.addEventListener('keydown', onKeyDown as any)
+
+    return () => window.removeEventListener('keydown', onKeyDown as any)
+  }, [])
 
   return (
     <Modal
@@ -191,8 +206,18 @@ export default function WrapperTaskModal({
               />
             </>
           )}
-
-          <DeleteButton onClick={() => deleteTask(String(task.id))} />
+          <div className="flex justify-center items-center gap-10 mt-auto">
+            <BsFillTrashFill
+              size={30}
+              className="hover:cursor-pointer fill-red-500 hover:fill-red-500 opacity-40 hover:opacity-100"
+              onClick={() => deleteTask(String(task.id))}
+            />
+            <ActionButton
+              onClick={() => {
+                onRequestClose()
+              }}
+            />
+          </div>
         </section>
       </main>
     </Modal>
