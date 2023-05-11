@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import Container from '../atoms/Container'
 import TodoItem from '../components/todo'
 import ProjectItem from '../molecules/ProjectItem'
+import FolderModal from '../organisms/FolderModal'
 import TaskModal from '../organisms/TaskModal'
 import WrapperApp from '../organisms/WrapperApp'
 import { sortScoredTasks } from '../utils/sortTasks'
@@ -10,7 +11,7 @@ import { StepTask } from '../utils/types/_StepTask'
 import { Task } from '../utils/types/_Task'
 
 interface TaskData {
-  tasks: (Task & StepTask)[] | undefined
+  tasks: Task[] | undefined
   isTasksLoading: boolean
   isTasksError: boolean
 }
@@ -25,14 +26,15 @@ export default function DashBoard({
   data: TaskData
 }) {
   const { tasks: tasksNormal, isTasksLoading, isTasksError } = data
-  const [filteredTasks, setFilteredTasks] = useState<(Task & StepTask)[]>()
+  const [filteredTasks, setFilteredTasks] = useState<Task[]>()
   const [filteredDoneToday, setFilteredDoneToday] = useState<Task[]>()
+  const [slice, setSlice] = useState(9)
 
   useEffect(() => {
     if (tasksNormal) {
       const filteredTodo = sortScoredTasks(tasksNormal)
         .filter(t => !t.done)
-        .slice(0, 30)
+        .slice(0, slice)
 
       const filteredDoneToday = tasksNormal
         .filter((t: Task) => t.done)
@@ -41,7 +43,7 @@ export default function DashBoard({
       setFilteredTasks(filteredTodo)
       setFilteredDoneToday(filteredDoneToday)
     }
-  }, [tasksNormal])
+  }, [tasksNormal, slice])
 
   return (
     <>
@@ -64,11 +66,20 @@ export default function DashBoard({
         )}
 
         {filteredTasks && (
-          <Container title="Todo:" grid={true}>
-            {filteredTasks.map((todo: Task | StepTask, i: number) => (
-              <TodoItem key={i} todo={todo} onToggle={() => {}} />
-            ))}
-          </Container>
+          <>
+            <Container
+              title="Todo:"
+              grid={true}
+              showSlice={true}
+              onSliceChange={newSlice => {
+                setSlice(newSlice)
+              }}
+            >
+              {filteredTasks.map((todo: Task | StepTask, i: number) => (
+                <TodoItem key={i} todo={todo} onToggle={() => {}} />
+              ))}
+            </Container>
+          </>
         )}
         {filteredDoneToday && (
           <Container title="Done Today:" grid={true}>
@@ -79,6 +90,7 @@ export default function DashBoard({
         )}
       </WrapperApp>
       <TaskModal />
+      <FolderModal />
     </>
   )
 }

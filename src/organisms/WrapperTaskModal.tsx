@@ -8,11 +8,25 @@ import { useTasks } from '../hooks/useTasks'
 import { useTaskStore } from '../store/useTaskStore'
 import { Task } from '../utils/types/_Task'
 
+type TaskModalProps = {
+  title: string
+  description: string
+  id: Task['id']
+  inMainView: boolean
+  relevancy?: number
+  simplicity?: number
+  urgency?: number
+}
+
+type OnChangeData = { id: Task['id']; updateData: Partial<Task> }
+
 interface Props {
   children: React.ReactNode
   isOpen: boolean
   onRequestClose: () => void
-  task: Task
+  task: TaskModalProps & Partial<Task>
+  onChange?: (data: OnChangeData) => void
+  // onChange?: (task: TaskModalProps & Partial<Task>) => void
 }
 
 export default function WrapperTaskModal({
@@ -20,18 +34,13 @@ export default function WrapperTaskModal({
   isOpen,
   onRequestClose,
   task,
+  onChange,
 }: Props) {
-  const {
-    taskSelected,
-    taskSelectedHistoric,
-    setTaskSelected,
-    setTaskSelectedHistoric,
-  } = useTaskStore()
+  const { taskSelectedHistoric, setTaskSelected, setTaskSelectedHistoric } =
+    useTaskStore()
 
   const showHistoric = taskSelectedHistoric && taskSelectedHistoric?.length > 1
   const { updateTask, deleteTask } = useTasks('359051936857588309')
-
-  if (!taskSelected) return null
 
   // useEffect(() => {
   //   setTaskSelectedHistoric(prevHistoric => {
@@ -42,6 +51,7 @@ export default function WrapperTaskModal({
   //     return prevHistoric
   //   })
   // }, [])
+  const isStepTask = typeof task.folderId === 'number'
 
   return (
     <Modal
@@ -52,7 +62,7 @@ export default function WrapperTaskModal({
     >
       <header className="flex justify-end px-4 py-2 dark:bg-slate-700 bg-slate-300">
         <div className="flex-1 flex gap-4">
-          {showHistoric &&
+          {/* {showHistoric &&
             taskSelectedHistoric.map((task, i) => (
               <span
                 key={task.id}
@@ -68,7 +78,7 @@ export default function WrapperTaskModal({
               >
                 {task.title}
               </span>
-            ))}
+            ))} */}
         </div>
         <FaWindowClose
           size={30}
@@ -87,74 +97,102 @@ export default function WrapperTaskModal({
             <AiOutlineCalendar size={20} className="fill-green-400" />
           </Group>
 
-          <Group
-            data={{
-              title: 'relevance',
-              label: 'relevance',
-              value: task.relevance || 0,
-            }}
-            onChange={newData => {
-              updateTask({
-                id: taskSelected.id,
-                updatedTask: {
-                  relevance: Number(newData.value),
-                },
-              })
-            }}
-          >
-            <FaBullseye size={20} className="fill-yellow-400" />
-          </Group>
+          {task.relevance !== undefined && !isStepTask && (
+            <Group
+              data={{
+                title: 'relevance',
+                label: 'relevance',
+                value: task.relevance,
+              }}
+              onChange={newData => {
+                if (onChange) {
+                  onChange({
+                    id: task.id,
+                    updateData: {
+                      relevance: Number(newData.value),
+                    },
+                  })
+                } else {
+                  updateTask({
+                    id: task.id,
+                    updatedTask: {
+                      relevance: Number(newData.value),
+                    },
+                  })
+                }
+              }}
+            >
+              <FaBullseye size={20} className="fill-yellow-400" />
+            </Group>
+          )}
 
-          <Group
-            data={{
-              title: 'simplicity',
-              label: 'simplicity',
-              value: task.simplicity || 0,
-            }}
-            onChange={newData => {
-              updateTask({
-                id: taskSelected.id,
-                updatedTask: {
-                  simplicity: Number(newData.value),
-                },
-              })
-            }}
-          >
-            <FaBolt size={20} className="fill-blue-400" />
-          </Group>
+          {task.simplicity !== undefined && (
+            <Group
+              data={{
+                title: 'simplicity',
+                label: 'simplicity',
+                value: task.simplicity,
+              }}
+              onChange={newData => {
+                // updateTask({
+                //   id: task.id,
+                //   updatedTask: {
+                //     simplicity: Number(newData.value),
+                //   },
+                // })
+                if (!onChange) return
+                onChange({
+                  id: task.id,
+                  updateData: {
+                    simplicity: Number(newData.value),
+                  },
+                })
+              }}
+            >
+              <FaBolt size={20} className="fill-blue-400" />
+            </Group>
+          )}
 
-          <Group
-            data={{
-              title: 'urgency',
-              label: 'urgency',
-              value: task.urgency || 0,
-            }}
-            onChange={newData => {
-              updateTask({
-                id: taskSelected.id,
-                updatedTask: {
-                  urgency: Number(newData.value),
-                },
-              })
-            }}
-          >
-            <FaFire size={20} className="fill-red-400 " />
-          </Group>
+          {task.urgency !== undefined && !isStepTask && (
+            <Group
+              data={{
+                title: 'urgency',
+                label: 'urgency',
+                value: task.urgency,
+              }}
+              onChange={newData => {
+                if (!onChange) return
+                onChange({
+                  id: task.id,
+                  updateData: {
+                    urgency: Number(newData.value),
+                  },
+                })
+              }}
+            >
+              <FaFire size={20} className="fill-red-400 " />
+            </Group>
+          )}
 
-          <h3>Show in dashboard</h3>
-          <Toggle
-            defaultValue={task.inMainView}
-            onValueChange={value => {
-              updateTask({
-                id: taskSelected.id,
-                updatedTask: {
-                  inMainView: value,
-                },
-              })
-            }}
-          />
+          {!isStepTask && (
+            <>
+              <h3>Show in dashboard</h3>
+              <Toggle
+                defaultValue={task.inMainView}
+                onValueChange={value => {
+                  if (!onChange) return
+                  onChange({
+                    id: task.id,
+                    updateData: {
+                      inMainView: value,
+                    },
+                  })
+                }}
+              />
+            </>
+          )}
 
-          <DeleteButton onClick={() => deleteTask(String(taskSelected.id))} />
+          <DeleteButton onClick={() => deleteTask(String(task.id))} />
         </section>
       </main>
     </Modal>

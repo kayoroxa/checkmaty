@@ -64,6 +64,7 @@ export const useTasks = (userId: string, options?: Partial<Task>) => {
           queryClient.invalidateQueries(['tasks', `parentId=${task.parentId}`])
         } else {
           queryClient.invalidateQueries('tasks')
+          queryClient.invalidateQueries(['stepTasks'])
         }
         setTaskSelected(task)
       },
@@ -98,6 +99,7 @@ export const useTasks = (userId: string, options?: Partial<Task>) => {
         }
       } else {
         queryClient.invalidateQueries('tasks')
+        queryClient.invalidateQueries(['stepTasks'])
       }
     },
   })
@@ -115,7 +117,7 @@ export const useTasks = (userId: string, options?: Partial<Task>) => {
     {
       onSuccess: () => {
         queryClient.invalidateQueries('tasks')
-        queryClient.invalidateQueries('subTasks')
+        queryClient.invalidateQueries(['stepTasks'])
         if (!taskSelected?.parentId) {
           setTaskSelected(null)
         } else {

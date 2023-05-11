@@ -15,14 +15,13 @@ interface Props {
 
 // Modal.setAppElement('#root')
 
-function TaskModal({ ...wrapperProps }: Props) {
+function TaskModal() {
   // const [isOpen, setIsOpen] = useState(initialIsOpen)
   const { updateTask, createTask } = useTasks('359051936857588309')
   const {
     taskSelected: task,
     setTaskSelected,
     resetTaskSelectedHistoric,
-    addTaskSelectedHistoric,
   } = useTaskStore()
 
   const { tasks: subtasks } = useTasks('359051936857588309', {
@@ -38,7 +37,19 @@ function TaskModal({ ...wrapperProps }: Props) {
         setTaskSelected(null)
         resetTaskSelectedHistoric()
       }}
-      task={task}
+      task={{
+        ...task,
+        title: task.title,
+        description: task.description,
+        id: task.id,
+        inMainView: task.inMainView || false,
+        urgency: task.urgency || 0,
+        relevance: task.relevance || 0,
+        simplicity: task.simplicity || 0,
+      }}
+      onChange={props =>
+        updateTask({ id: props.id, updatedTask: props.updateData })
+      }
     >
       <header className="flex items-center justify-start ml-6 gap-2">
         <section>

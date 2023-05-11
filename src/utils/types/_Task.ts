@@ -23,7 +23,7 @@ export interface Task_raw {
   projectId?: number | null //(referência ao projeto que criou a tarefa)
 }
 
-export type Task = Task_raw & StepTask
+export type Task = Task_raw & Partial<StepTask>
 
 export interface TaskCreate extends Omit<Task, 'id'> {
   id?: number
