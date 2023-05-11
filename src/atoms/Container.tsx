@@ -22,8 +22,8 @@ export default function Container({
     return `
       ${
         isEqual
-          ? 'bg-red-600 cursor-default'
-          : 'bg-slate-600 hover:bg-slate-500'
+          ? 'bg-slate-500/80 cursor-default'
+          : 'bg-slate-600/40 hover:bg-slate-500'
       }
       px-4 rounded-lg shadow-md h-fit
     `
@@ -42,8 +42,8 @@ export default function Container({
           {title && <h1 className="text-xl mb-2 ml-2 ">{title}</h1>}
           {showSlice && (
             <>
-              <button className={getClass(3)} onClick={() => setSlice(3)}>
-                3
+              <button className={getClass(6)} onClick={() => setSlice(6)}>
+                6
               </button>
               <button className={getClass(9)} onClick={() => setSlice(9)}>
                 9
@@ -51,8 +51,8 @@ export default function Container({
               <button className={getClass(12)} onClick={() => setSlice(12)}>
                 12
               </button>
-              <button className={getClass(15)} onClick={() => setSlice(15)}>
-                15
+              <button className={getClass(30)} onClick={() => setSlice(30)}>
+                30
               </button>
             </>
           )}
