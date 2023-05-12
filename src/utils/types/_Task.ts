@@ -15,6 +15,8 @@ export interface Task_raw {
   createdAt?: number //timestamp
   updatedAt?: number //timestamp
 
+  is_recurring?: boolean
+
   tags?: string[]
 
   user_id?: string //(referência ao usuário que criou a tarefa)

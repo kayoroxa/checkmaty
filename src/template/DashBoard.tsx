@@ -16,6 +16,17 @@ interface TaskData {
   isTasksError: boolean
 }
 
+export const isDone = (task: Task) => {
+  const isRecurring = task.is_recurring && task.doneDate
+
+  if (!isRecurring || !task.doneDate) return task.done
+
+  const today = new Date().getDate()
+  const doneDate = new Date(task.doneDate).getDate()
+
+  return doneDate === today
+}
+
 export default function DashBoard({
   projectsData,
   isLoading,
@@ -33,7 +44,11 @@ export default function DashBoard({
   useEffect(() => {
     if (tasksNormal) {
       const filteredTodo = sortScoredTasks(tasksNormal)
-        .filter(t => !t.done)
+        .filter(t =>
+          t.doneDate && t.is_recurring && t.done
+            ? new Date(t.doneDate).getDate() !== new Date().getDate()
+            : !t.done
+        )
         .slice(0, slice)
 
       const filteredDoneToday = tasksNormal.filter(

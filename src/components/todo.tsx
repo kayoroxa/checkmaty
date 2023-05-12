@@ -26,18 +26,17 @@ const TodoItem = ({ todo, onToggle }: { todo: Task; onToggle: any }) => {
   const router = useRouter()
   const pathname = router.pathname
 
-  const handleToggle = () => {
+  const handleToggle = (todoDone: boolean) => {
     onToggle(todo)
 
     const updateData: { id: number; updatedTask: Partial<Task> } = {
       id: todo.id,
       updatedTask: {
-        done: !todo.done,
+        done: !todoDone,
         updatedAt: new Date().getTime(),
-        // doneDate: todo.done ? new Date().getTime() : undefined,
       },
     }
-    if (!todo.done) {
+    if (!todoDone) {
       updateData.updatedTask.doneDate = new Date().getTime()
     }
     updateTask(updateData)
@@ -53,6 +52,11 @@ const TodoItem = ({ todo, onToggle }: { todo: Task; onToggle: any }) => {
   const { setTaskSelected, addTaskSelectedHistoric } = useTaskStore()
   const { setFolderSelected } = useFolderStore()
 
+  const todoDone =
+    todo.doneDate && todo.is_recurring && todo.done
+      ? new Date(todo.doneDate).getDate() === new Date().getDate()
+      : todo.done
+
   return (
     <div
       className="flex items-start  hover:bg-blue-50 px-4 dark:hover:bg-slate-700  min-w-[400px] rounded-2xl dark:bg-slate-700/80 relative ml-6 hover:cursor-pointer"
@@ -67,22 +71,22 @@ const TodoItem = ({ todo, onToggle }: { todo: Task; onToggle: any }) => {
     >
       <section className="h-full my-auto flex items-center justify-center">
         <DoneButton
-          done={todo.done || false}
+          done={todoDone || false}
           onClick={event => {
             event.stopPropagation()
-            handleToggle()
+            if (todoDone !== undefined) handleToggle(todoDone)
           }}
         />
       </section>
 
       <section
         className={`py-3 overflow-hidden w-full  ${
-          todo.done ? 'opacity-60' : 'opacity-100'
+          todoDone ? 'opacity-60' : 'opacity-100'
         } flex flex-col h-full`}
       >
         <div
           className={`flex-1 text-2xl text-gray-900 dark:text-white ${
-            todo.done ? 'line-through' : ''
+            todoDone ? 'line-through' : ''
           }`}
         >
           {todo.title}
