@@ -4,7 +4,8 @@
     "dev": "next dev -p 3010",
     "build": "next build",
     "start": "next start",
-    "back": "node server.js"
+    "back": "node server.js",
+    "front-back": "concurrently \"next start -p 3010\" \"node server.js\""
   },
   "dependencies": {
     "axios": "^1.3.4",
