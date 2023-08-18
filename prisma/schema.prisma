@@ -1,0 +1,97 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  email         String @unique
+  dailyScore    Int
+  lastScoreDate String
+  dailyGoal     Int
+  userName      String @unique
+  imgUrl        String
+
+  // Define the relationships
+  projects Project[]
+  tasks    Task[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Folder    Folder[]
+}
+
+model Project {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  description String
+  coverImg    String
+  imgUrl      String
+  percent     Int?
+
+  createdByUserId String @map("user_id") @db.ObjectId
+  user            User   @relation(fields: [createdByUserId], references: [id])
+
+  tasks  Task[]
+  Folder Folder[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  accessUser String[]
+}
+
+model Task {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  title        String
+  description  String
+  relevance    Int?
+  simplicity   Int?
+  urgency      Int?
+  done         Boolean?
+  doneDate     String?
+  dueDate      String?
+  is_recurring Boolean?
+  inMainView   Boolean?
+  parentId     String?  @db.ObjectId
+
+  createdByUserId String @map("user_id") @db.ObjectId
+  user            User   @relation(fields: [createdByUserId], references: [id])
+
+  project_id String?  @map("project_id") @db.ObjectId
+  project    Project? @relation(fields: [project_id], references: [id])
+
+  folder_id String? @map("folder_id") @db.ObjectId
+  folder    Folder? @relation(fields: [folder_id], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Folder {
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  title           String
+  description     String
+  relevance       Int?
+  urgency         Int?
+  tasksInMainView Boolean?
+
+  createdByUserId String @map("user_id") @db.ObjectId
+  user            User   @relation(fields: [createdByUserId], references: [id])
+
+  project_id String?  @map("project_id") @db.ObjectId
+  project    Project? @relation(fields: [project_id], references: [id])
+
+  tasks Task[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
