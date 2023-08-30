@@ -75,8 +75,10 @@ export default function DashBoard({
 
   const calc = mainCalcDoneDayScore(filteredDoneToday || [])
 
-  const goodScore = user?.dailyGoal ? calc.score >= user?.dailyGoal : false
-  const midScore = user?.dailyGoal ? calc.score >= user?.dailyGoal * 0.6 : false
+  const dailyGoal = user?.dailyGoal || 40
+
+  const goodScore = calc.score >= dailyGoal
+  const midScore = calc.score >= dailyGoal * 0.6
 
   return (
     <>
