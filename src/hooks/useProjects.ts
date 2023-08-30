@@ -16,7 +16,7 @@ export const useProjects = (user_id: string) => {
     'projects',
     async () => {
       const { data } = await axiosApi.get<Project[]>(projectsUrl)
-      debugger
+
       return data
     },
     {

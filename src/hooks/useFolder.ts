@@ -67,7 +67,6 @@ export const useFolder = (id?: Type['id']) => {
         queryClient.invalidateQueries('stepTasks')
         queryClient.invalidateQueries('tasks')
 
-        debugger
         setFolderSelected(null)
         router.push('/')
       },

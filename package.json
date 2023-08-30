@@ -5,7 +5,8 @@
     "build": "next build",
     "start": "next start",
     "back": "node server.js",
-    "front-back": "concurrently \"next start -p 3010\" \"node server.js\""
+    "front-back": "concurrently \"next start -p 3010\" \"node server.js\"",
+    "dev-front-back": "concurrently \"next dev -p 3010\" \"node server.js\""
   },
   "dependencies": {
     "@prisma/client": "^5.1.1",
