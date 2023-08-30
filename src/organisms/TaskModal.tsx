@@ -68,9 +68,11 @@ function TaskModal() {
           />
           <Input
             onValueChange={newValue => {
+              const is_recurring = Boolean(newValue?.match(/[🔁🔂🔃]/g))
+
               updateTask({
                 id: task.id,
-                updatedTask: { description: newValue },
+                updatedTask: { is_recurring, description: newValue },
               })
             }}
             value={task.description}
