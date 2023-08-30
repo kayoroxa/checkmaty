@@ -1,8 +1,9 @@
+import { Task, User } from '@prisma/client'
 import { useMutation, useQuery } from 'react-query'
 import { queryClient } from '../pages/_app'
 import { useTaskStore } from '../store/useTaskStore'
 import { axiosApi } from '../utils/axiosApi'
-import { Task, TaskCreate } from '../utils/types/_Task'
+import { TaskCreate } from '../utils/types/_Task'
 
 function get(url: string, user_id: string, key: string | string[]) {
   return useQuery<Task[]>(
@@ -18,7 +19,7 @@ function get(url: string, user_id: string, key: string | string[]) {
   )
 }
 
-export const useTasks = (user_id: string, options?: Partial<Task>) => {
+export const useTasks = (user_id: User['id'], options?: Partial<Task>) => {
   const optionsQuery =
     options &&
     Object.entries(options)
@@ -34,8 +35,11 @@ export const useTasks = (user_id: string, options?: Partial<Task>) => {
     isError: isTasksError,
     error: tasksError,
   } = optionsQuery
-    ? get(`/tasks?${optionsQuery}`, user_id, ['tasks', optionsQuery])
-    : get(`/tasks`, user_id, ['tasks'])
+    ? get(`/tasks?${optionsQuery}&user_id=${user_id}`, user_id, [
+        'tasks',
+        optionsQuery,
+      ])
+    : get(`/tasks?user_id=${user_id}`, user_id, ['tasks'])
 
   const {
     setTaskSelected,
@@ -76,7 +80,7 @@ export const useTasks = (user_id: string, options?: Partial<Task>) => {
     updatedTask: Partial<Task>
   }) {
     const { id, updatedTask } = props
-    const { data } = await axiosApi.patch<Task>(`/tasks/${id}`, updatedTask)
+    const { data } = await axiosApi.patch<Task>(`/task/${id}`, updatedTask)
     return data
   }
 
@@ -111,7 +115,7 @@ export const useTasks = (user_id: string, options?: Partial<Task>) => {
     error: deleteTaskError,
   } = useMutation(
     async (taskId: string) => {
-      const { data } = await axiosApi.delete(`/tasks/${taskId}`)
+      const { data } = await axiosApi.delete(`/task/${taskId}`)
       return data
     },
     {

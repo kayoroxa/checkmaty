@@ -1,3 +1,4 @@
+'use client'
 import { useEffect, useState } from 'react'
 import Container from '../atoms/Container'
 import TodoItem from '../components/todo'
@@ -41,8 +42,10 @@ export default function DashBoard({
   const [filteredDoneToday, setFilteredDoneToday] = useState<Task[]>()
   const [slice, setSlice] = useState(9)
 
+  console.log({ tasksNormal })
+
   useEffect(() => {
-    if (tasksNormal) {
+    if (tasksNormal && tasksNormal?.length > 0) {
       const filteredTodo = sortScoredTasks(tasksNormal)
         .filter(t =>
           t.doneDate && t.is_recurring && t.done

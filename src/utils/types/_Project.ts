@@ -1,20 +1,25 @@
-export interface Project {
-  id: number
-  name: string
-  description: string
+// export interface Project {
+//   id: number
+//   name: string
+//   description: string
 
-  coverImg: string
-  imgUrl: string
+//   coverImg: string
+//   imgUrl: string
 
-  percent?: number
+//   percent?: number
 
-  createdAt: number
-  updatedAt: number
-  createdByUserId: string
-  accessUserIds: string[]
-}
+//   createdAt: number
+//   updatedAt: number
+//   createdByUserId: string
+//   accessUserIds: string[]
+// }
 
-export interface ProjectCreate extends Omit<Project, 'id'> {
-  id?: number
-  user_id: string
-}
+import type { Prisma, Project as ProjectPrisma } from '@prisma/client'
+
+export type Project = ProjectPrisma
+export type ProjectCreate = Prisma.ProjectCreateInput
+
+// export interface ProjectCreate extends Omit<Project, 'id'> {
+//   id?: number
+//   user_id: string
+// }

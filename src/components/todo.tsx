@@ -6,8 +6,8 @@ import { queryClient } from '../pages/_app'
 import { useTaskStore } from '../store/useTaskStore'
 import { axiosApi } from '../utils/axiosApi'
 import { Project } from '../utils/types/_Project'
-import { Task } from '../utils/types/_Task'
 
+import { Task } from '@prisma/client'
 import { FaBolt, FaBullseye, FaFire } from 'react-icons/fa'
 import { useFolderStore } from '../store/useFolderStore'
 
@@ -22,22 +22,21 @@ async function updateTodo(
 }
 
 const TodoItem = ({ todo, onToggle }: { todo: Task; onToggle: any }) => {
-  const { updateTask } = useTasks('359051936857588309')
+  const { updateTask } = useTasks('64de7201df61c3c518e7a83b')
   const router = useRouter()
   const pathname = router.pathname
 
   const handleToggle = (todoDone: boolean) => {
     onToggle(todo)
 
-    const updateData: { id: number; updatedTask: Partial<Task> } = {
+    const updateData: { id: Task['id']; updatedTask: Partial<Task> } = {
       id: todo.id,
       updatedTask: {
         done: !todoDone,
-        updatedAt: new Date().getTime(),
       },
     }
     if (!todoDone) {
-      updateData.updatedTask.doneDate = new Date().getTime()
+      updateData.updatedTask.doneDate = new Date().toISOString()
     }
     updateTask(updateData)
   }

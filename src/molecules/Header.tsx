@@ -14,9 +14,9 @@ import { TaskCreate } from '../utils/types/_Task'
 import { User } from '../utils/types/_User'
 
 export default function Header() {
-  const { createTask } = useTasks('359051936857588309')
-  const { createProject } = useProjects('359051936857588309')
-  const { createFolder } = useFolders('359051936857588309')
+  const { createTask } = useTasks('64de7201df61c3c518e7a83b')
+  const { createProject } = useProjects('64de7201df61c3c518e7a83b')
+  const { createFolder } = useFolders('64de7201df61c3c518e7a83b')
   const { setTaskSelected } = useTaskStore()
 
   const { query, asPath } = useRouter()
@@ -35,7 +35,7 @@ export default function Header() {
             const data: TaskCreate = {
               title: 'New task',
               description: '',
-              user_id: '359051936857588309',
+              user_id: '64de7201df61c3c518e7a83b',
               inMainView: true,
               done: false,
             }
@@ -61,7 +61,7 @@ export default function Header() {
             createFolder({
               description: '',
               title: 'New Folder',
-              user_id: '359051936857588309',
+              user_id: '64de7201df61c3c518e7a83b',
               createdAt: new Date().getTime(),
               updatedAt: new Date().getTime(),
               tasksInMainView: true,
@@ -77,14 +77,14 @@ export default function Header() {
             createProject({
               name: 'New Project',
               description: '',
-              createdByUserId: '359051936857588309',
+              createdByUserId: '64de7201df61c3c518e7a83b',
               createdAt: new Date().getTime(),
               updatedAt: new Date().getTime(),
               imgUrl: 'https://i.stack.imgur.com/IaZve.png',
               coverImg:
                 'https://installnet.com/wp-content/themes/u-design/assets/images/placeholders/post-placeholder.jpg',
               accessUserIds: [],
-              user_id: '359051936857588309',
+              user_id: '64de7201df61c3c518e7a83b',
             })
           }}
         >
