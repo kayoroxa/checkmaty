@@ -1,21 +1,26 @@
-export interface Folder {
-  id: number
-  title: string
-  description: string
+import { Folder as _Folder } from '@prisma/client'
 
-  relevance?: number
-  urgency?: number
+// export interface Folder {
+//   id: number
+//   title: string
+//   description: string
 
-  createdAt?: number
-  updatedAt?: number
-  // createdByUserId: string //(referência ao usuário que criou a tarefa)
-  // accessUserIds: string[]
+//   relevance?: number
+//   urgency?: number
 
-  tasksInMainView?: boolean
-  project_id?: number | null //(referência ao projeto que criou a pasta)
-}
+//   createdAt?: Date
+//   updatedAt?: Date
+//   // createdByUserId: string //(referência ao usuário que criou a tarefa)
+//   // accessUserIds: string[]
 
-export interface FolderCreate extends Omit<Folder, 'id'> {
-  id?: number
-  user_id: string
-}
+//   tasksInMainView?: boolean
+//   project_id?: number | null //(referência ao projeto que criou a pasta)
+// }
+
+export type Folder = _Folder
+
+export type FolderCreate = Omit<_Folder, 'id'>
+
+// export interface FolderCreate extends Omit<_Folder, 'id'> {
+//   createdByUserId: string
+// }

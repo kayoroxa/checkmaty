@@ -8,8 +8,8 @@ export interface Project {
 
   percent?: number
 
-  createdAt: number
-  updatedAt: number
+  createdAt: Date
+  updatedAt?: Date
   createdByUserId: string
   accessUserIds: string[]
 }

@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import { useMutation, useQuery } from 'react-query'
 import { queryClient } from '../pages/_app'
-import { axiosApi } from '../utils/axiosApi'
+import { axiosNextApi } from '../utils/axiosApi'
 import { Folder } from '../utils/types/_Folder'
 import { StepTask, StepTaskCreate } from '../utils/types/_StepTask'
 import { useFolderStore } from './../store/useFolderStore'
@@ -20,7 +20,7 @@ export const useFolder = (id?: Type['id']) => {
   } = useQuery<Type | null>(
     ['folders', id],
     async () => {
-      const get = axiosApi.get<Type>
+      const get = axiosNextApi.get<Type>
       const { data } = await get(folderUrl)
 
       return data || null
@@ -39,8 +39,8 @@ export const useFolder = (id?: Type['id']) => {
   } = useQuery<StepTask[] | null>(
     ['stepTasks', id],
     async () => {
-      const get = axiosApi.get<StepTask[]>
-      const { data } = await get(`/tasks?folder_id=${id}&_sort=order`)
+      const get = axiosNextApi.get<StepTask[]>
+      const { data } = await get(`/folders/${id}/tasks`)
       // const { data } = await get(`/steptasks?folder_id=${id}&_sort=order`)
 
       return data || null
@@ -58,7 +58,7 @@ export const useFolder = (id?: Type['id']) => {
     error: deleteFolderError,
   } = useMutation(
     async () => {
-      const { data } = await axiosApi.delete(folderUrl)
+      const { data } = await axiosNextApi.delete(folderUrl)
       return data
     },
     {
@@ -74,7 +74,7 @@ export const useFolder = (id?: Type['id']) => {
   )
 
   type UpdateFolder = {
-    id: number
+    id: Folder['id']
     updatedFolder: Partial<Type>
   }
 
@@ -85,7 +85,7 @@ export const useFolder = (id?: Type['id']) => {
     error: updateFolderError,
   } = useMutation(
     async (p: UpdateFolder) => {
-      const patch = axiosApi.patch<Type>
+      const patch = axiosNextApi.patch<Type>
       const { data } = await patch(folderUrl, p.updatedFolder)
 
       return data
@@ -106,7 +106,7 @@ export const useFolder = (id?: Type['id']) => {
     error: createStepTaskError,
   } = useMutation(
     async (newTask: StepTaskCreate) => {
-      const { data } = await axiosApi.post<Folder>('/tasks', newTask)
+      const { data } = await axiosNextApi.post<Folder>('/tasks', newTask)
 
       return data
     },

@@ -1,24 +1,30 @@
-import { Folder } from './_Folder'
+import { Folder, Task as _Task } from '@prisma/client'
 
-export interface StepTask {
-  id: number //(gerado automaticamente pelo FaunaDB)
-  title: string
-  description: string
+// export interface StepTask {
+//   id: number //(gerado automaticamente pelo FaunaDB)
+//   title: string
+//   description: string
 
-  simplicity?: number
+//   simplicity?: number
 
-  done?: boolean
+//   done?: boolean
 
-  dueDate?: number //timestamp
-  createdAt?: number //timestamp
-  updatedAt?: number //timestamp
+//   dueDate?: number //timestamp
+//   createdAt?: Date //timestamp
+//   updatedAt?: Date //timestamp
 
-  tags?: string[]
+//   tags?: string[]
 
-  folder_id: number //(referência a pasta que criou a tarefa)
+//   folder_id: number //(referência a pasta que criou a tarefa)
+//   folder?: Folder
+// }
+
+// export interface StepTaskCreate extends Omit<StepTask, 'id'> {
+//   id?: number
+// }
+
+export type StepTask = _Task & {
   folder?: Folder
 }
 
-export interface StepTaskCreate extends Omit<StepTask, 'id'> {
-  id?: number
-}
+export type StepTaskCreate = Omit<StepTask, 'id'>
