@@ -21,11 +21,11 @@ export function calcDoneDayScore(
 
 export function mainCalcDoneDayScore(tasks: Task[]) {
   const relevance = calcDoneDayScore(tasks, 'relevance')
-  const simplicity = calcDoneDayScore(tasks, 'simplicity')
+  const simplicity = calcDoneDayScore(tasks, 'simplicity') * 0.4
   const urgency = calcDoneDayScore(tasks, 'urgency')
 
   return {
-    score: relevance + urgency - simplicity,
+    score: relevance + urgency + simplicity,
     relevance,
     simplicity,
     urgency,

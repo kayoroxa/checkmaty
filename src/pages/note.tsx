@@ -10,7 +10,7 @@ export default function Note() {
       return data
     },
     {
-      staleTime: 1000 * 60 * 2,
+      staleTime: 1000 * 60 * 3,
     }
   )
   return (

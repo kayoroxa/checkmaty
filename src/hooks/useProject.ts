@@ -22,7 +22,7 @@ export const useProject = (id: Project['id']) => {
       return data || null
     },
     {
-      staleTime: 1000 * 60 * 2,
+      staleTime: 1000 * 60 * 3,
       enabled: !!id,
     }
   )

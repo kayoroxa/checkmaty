@@ -26,7 +26,7 @@ export const useFolder = (id?: Type['id']) => {
       return data || null
     },
     {
-      staleTime: 1000 * 60 * 2,
+      staleTime: 1000 * 60 * 3,
       enabled: !!id,
     }
   )
@@ -46,7 +46,7 @@ export const useFolder = (id?: Type['id']) => {
       return data || null
     },
     {
-      staleTime: 1000 * 60 * 2,
+      staleTime: 1000 * 60 * 3,
       enabled: !!id,
     }
   )
