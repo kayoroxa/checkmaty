@@ -50,18 +50,18 @@ model Project {
 }
 
 model Task {
-  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  id           String    @id @default(auto()) @map("_id") @db.ObjectId
   title        String
   description  String
   relevance    Int?
   simplicity   Int?
   urgency      Int?
   done         Boolean?
-  doneDate     String?
-  dueDate      String?
+  doneDate     DateTime?
+  dueDate      DateTime?
   is_recurring Boolean?
   inMainView   Boolean?
-  parentId     String?  @db.ObjectId
+  parentId     String?   @db.ObjectId
 
   createdByUserId String @map("user_id") @db.ObjectId
   user            User   @relation(fields: [createdByUserId], references: [id])

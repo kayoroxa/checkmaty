@@ -1,14 +1,14 @@
 import { useMutation, useQuery } from 'react-query'
 import { queryClient } from '../pages/_app'
 import { useTaskStore } from '../store/useTaskStore'
-import { axiosApi } from '../utils/axiosApi'
+import { axiosApi, axiosNextApi } from '../utils/axiosApi'
 import { Task, TaskCreate } from '../utils/types/_Task'
 
 function get(url: string, user_id: string, key: string | string[]) {
   return useQuery<Task[]>(
     key,
     async () => {
-      const { data } = await axiosApi.get<Task[]>(url)
+      const { data } = await axiosNextApi.get<Task[]>(url)
       return data
     },
     {
@@ -56,9 +56,7 @@ export const useTasks = (user_id: string, options?: Partial<Task>) => {
     },
     {
       onSuccess: task => {
-        const isSubTask =
-          typeof task?.parentId === 'string' ||
-          typeof task?.parentId === 'number'
+        const isSubTask = typeof task?.parentId === 'string'
         if (isSubTask) {
           // queryClient.invalidateQueries('subTasks')
           queryClient.invalidateQueries(['tasks', `parentId=${task.parentId}`])
@@ -72,11 +70,11 @@ export const useTasks = (user_id: string, options?: Partial<Task>) => {
   )
 
   async function fetchUpdate(props: {
-    id: number
+    id: Task['id']
     updatedTask: Partial<Task>
   }) {
     const { id, updatedTask } = props
-    const { data } = await axiosApi.patch<Task>(`/tasks/${id}`, updatedTask)
+    const { data } = await axiosNextApi.patch<Task>(`/tasks/${id}`, updatedTask)
     return data
   }
 
@@ -87,8 +85,7 @@ export const useTasks = (user_id: string, options?: Partial<Task>) => {
     error: updateTaskError,
   } = useMutation(fetchUpdate, {
     onSuccess: (task, { updatedTask }) => {
-      const isSubTask =
-        typeof task?.parentId === 'string' || typeof task?.parentId === 'number'
+      const isSubTask = typeof task?.parentId === 'string'
 
       if (isSubTask) {
         if (updatedTask.inMainView === undefined && !task.inMainView) {

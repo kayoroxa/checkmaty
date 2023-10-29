@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import { useMutation, useQuery } from 'react-query'
 import { queryClient } from '../pages/_app'
-import { axiosApi } from '../utils/axiosApi'
+import { axiosNextApi } from '../utils/axiosApi'
 import { Folder, FolderCreate } from '../utils/types/_Folder'
 import { useFolderStore } from './../store/useFolderStore'
 
@@ -16,7 +16,7 @@ export const useFolders = (user_id: string) => {
   } = useQuery<Folder[]>(
     'folders',
     async () => {
-      const { data } = await axiosApi.get<Folder[]>(foldersUrl)
+      const { data } = await axiosNextApi.get<Folder[]>(foldersUrl)
       return data
     },
     {
@@ -34,7 +34,7 @@ export const useFolders = (user_id: string) => {
   } = useMutation(
     async (newFolder: FolderCreate) => {
       console.log('colocando nova folder')
-      const { data } = await axiosApi.post<Folder>('/folders', newFolder)
+      const { data } = await axiosNextApi.post<Folder>('/folders', newFolder)
       return data
     },
     {

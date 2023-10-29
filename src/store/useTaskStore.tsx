@@ -9,7 +9,7 @@ interface MyState {
   addTaskSelectedHistoric: (task: Task) => void
   resetTaskSelectedHistoric: () => void
   setTaskSelectedHistoric: (callBack: (prev: Task[]) => Task[]) => void
-  setTaskIdSelected: (id: number) => void
+  setTaskIdSelected: (id: Task['id']) => void
 }
 
 export const useTaskStore = create<MyState>()((set, get) => ({
@@ -46,7 +46,7 @@ export const useTaskStore = create<MyState>()((set, get) => ({
       set({ taskSelectedHistoric: [] })
     }
   },
-  setTaskIdSelected: (id: number) => {
+  setTaskIdSelected: (id: Task['id']) => {
     const tasks = (queryClient.getQueryState(['tasks'])?.data as Task[]) || []
     const taskSelected = tasks.find(task => task.id === id)
     set({ taskSelected })

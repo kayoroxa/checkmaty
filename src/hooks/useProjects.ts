@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import { useMutation, useQuery } from 'react-query'
 import { queryClient } from '../pages/_app'
-import { axiosApi } from '../utils/axiosApi'
+import { axiosApi, axiosNextApi } from '../utils/axiosApi'
 import { Project, ProjectCreate } from '../utils/types/_Project'
 
 export const useProjects = (user_id: string) => {
@@ -15,7 +15,7 @@ export const useProjects = (user_id: string) => {
   } = useQuery<Project[]>(
     'projects',
     async () => {
-      const { data } = await axiosApi.get<Project[]>(projectsUrl)
+      const { data } = await axiosNextApi.get<Project[]>(projectsUrl)
 
       return data
     },
