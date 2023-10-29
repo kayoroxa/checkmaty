@@ -64,7 +64,9 @@ export default function Container({
       </div>
       <div
         className={`dark:bg-slate-700/40 flex-1 rounded-2xl w-full p-5 flex-wrap gap-6 ${
-          grid === true ? 'grid grid-cols-3' : 'flex'
+          grid === true
+            ? 'grid grid-cols-1 lg:grid-cols-2 sm:grid-cols-1  md:grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3'
+            : 'flex'
         }`}
       >
         {children}

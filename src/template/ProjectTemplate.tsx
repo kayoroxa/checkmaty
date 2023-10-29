@@ -17,7 +17,9 @@ interface IProps {
 
 export default function ProjectTemplate({ project_id }: IProps) {
   const { project, deleteProject, updateProject } = useProject(project_id)
-  const data = useTasksIn('359051936857588309', { project_id: project_id })
+  const data = useTasksIn('64de7201df61c3c518e7a83b', {
+    project_id: project_id,
+  })
   const projectData = project
   const [modalIsOpen, setModalIsOpen] = useState<number | false>(false)
 

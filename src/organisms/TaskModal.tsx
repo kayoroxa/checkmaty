@@ -1,4 +1,3 @@
-import ButtonOp from '../atoms/ButtonOp'
 import DoneButton from '../atoms/DoneButton'
 import Input from '../atoms/Input'
 import TodoItem from '../components/todo'
@@ -17,14 +16,14 @@ interface Props {
 
 function TaskModal() {
   // const [isOpen, setIsOpen] = useState(initialIsOpen)
-  const { updateTask, createTask } = useTasks('359051936857588309')
+  const { updateTask, createTask } = useTasks('64de7201df61c3c518e7a83b')
   const {
     taskSelected: task,
     setTaskSelected,
     resetTaskSelectedHistoric,
   } = useTaskStore()
 
-  const { tasks: subtasks, deleteTask } = useTasks('359051936857588309', {
+  const { tasks: subtasks, deleteTask } = useTasks('64de7201df61c3c518e7a83b', {
     parentId: task?.id,
   })
 
@@ -81,19 +80,19 @@ function TaskModal() {
         </section>
       </header>
 
-      <ButtonOp
+      {/* <ButtonOp
         title="Add Subtask"
         onClick={async () => {
-          const newTask = await createTask({
-            title: 'New task',
-            description: '',
-            user_id: '359051936857588309',
-            inMainView: false,
-            done: false,
-            parentId: task.id,
-          })
+          // const newTask = await createTask({
+          //   title: 'New task',
+          //   description: '',
+          //   createdByUserId: '64de7201df61c3c518e7a83b',
+          //   inMainView: false,
+          //   done: false,
+          //   parentId: task.id,
+          // })
         }}
-      />
+      /> */}
       {subtasks && (
         <div className="border-t border-gray-200 mt-4 pt-4">
           <h3 className="text-2xl font-medium mb-2">Subtasks:</h3>

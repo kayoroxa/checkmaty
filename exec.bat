@@ -1,3 +1,3 @@
-start chrome http://localhost:3010
+start msedge http://localhost:3010
 yarn front-back
 

@@ -9,7 +9,7 @@ export default function Project() {
   if (!id) return <h1>Passe o ID</h1>
 
   if (typeof id === 'string' || typeof id === 'number') {
-    const data = useTasks('359051936857588309')
+    const data = useTasks('64de7201df61c3c518e7a83b')
 
     return <ProjectTemplate project_id={parseInt(id)} data={data} />
   }

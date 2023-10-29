@@ -1,13 +1,13 @@
 import { useMutation, useQuery } from 'react-query'
 import { queryClient } from '../pages/_app'
-import { axiosApi } from '../utils/axiosApi'
+import { axiosApi, axiosNextApi } from '../utils/axiosApi'
 import { StepTask, StepTaskCreate } from '../utils/types/_StepTask'
 
 function get(url: string, user_id: string, key: string | string[]) {
   return useQuery<StepTask[]>(
     key,
     async () => {
-      const { data } = await axiosApi.get<StepTask[]>(url)
+      const { data } = await axiosNextApi.get<StepTask[]>(url)
       return data
     },
     {
@@ -33,8 +33,8 @@ export const useStepTasks = (user_id: string, options?: Partial<StepTask>) => {
     isError: isStepTasksError,
     error: stepTasksError,
   } = optionsQuery
-    ? get(`/stepTasks?${optionsQuery}`, user_id, ['stepTasks', optionsQuery])
-    : get(`/stepTasks`, user_id, ['stepTasks'])
+    ? get(`/tasks?${optionsQuery}`, user_id, ['stepTasks', optionsQuery])
+    : get(`/tasks`, user_id, ['stepTasks'])
 
   const {
     mutate: createStepTask,

@@ -22,22 +22,23 @@ async function updateTodo(
 }
 
 const TodoItem = ({ todo, onToggle }: { todo: Task; onToggle: any }) => {
-  const { updateTask } = useTasks('359051936857588309')
+  const { updateTask } = useTasks('64de7201df61c3c518e7a83b')
   const router = useRouter()
   const pathname = router.pathname
 
   const handleToggle = (todoDone: boolean) => {
     onToggle(todo)
 
-    const updateData: { id: number; updatedTask: Partial<Task> } = {
+    const updateData: { id: Task['id']; updatedTask: Partial<Task> } = {
       id: todo.id,
       updatedTask: {
         done: !todoDone,
-        updatedAt: new Date().getTime(),
+        // updatedAt: new Date().getTime(),
       },
     }
     if (!todoDone) {
-      updateData.updatedTask.doneDate = new Date().getTime()
+      updateData.updatedTask.doneDate = new Date()
+      // updateData.updatedTask.doneDate = new Date().getTime()
     }
     updateTask(updateData)
   }
@@ -54,7 +55,7 @@ const TodoItem = ({ todo, onToggle }: { todo: Task; onToggle: any }) => {
 
   const todoDone =
     todo.doneDate && todo.is_recurring && todo.done
-      ? new Date(todo.doneDate).getDate() === new Date().getDate()
+      ? new Date(todo.doneDate) === new Date()
       : todo.done
 
   return (
@@ -70,13 +71,15 @@ const TodoItem = ({ todo, onToggle }: { todo: Task; onToggle: any }) => {
       }}
     >
       <section className="h-full my-auto flex items-center justify-center">
-        <DoneButton
-          done={todoDone || false}
-          onClick={event => {
-            event.stopPropagation()
-            if (todoDone !== undefined) handleToggle(todoDone)
-          }}
-        />
+        {todo.id && (
+          <DoneButton
+            done={todoDone || false}
+            onClick={event => {
+              event.stopPropagation()
+              if (todoDone !== undefined) handleToggle(Boolean(todoDone))
+            }}
+          />
+        )}
       </section>
 
       <section
