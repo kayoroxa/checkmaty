@@ -11,7 +11,7 @@ function get(url: string, user_id: string, key: string | string[]) {
       return data
     },
     {
-      staleTime: 1000 * 60 * 2,
+      staleTime: 1000 * 60 * 3,
       enabled: !!user_id,
     }
   )

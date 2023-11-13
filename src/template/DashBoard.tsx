@@ -119,7 +119,7 @@ export default function DashBoard({
                   : 'bg-red-600'
               }`}
             >
-              Score: {calc.score}
+              Score: {Math.round(calc.score)}
             </div>
             <FaBolt size={20} className="fill-blue-400 -mr-2" />
             <div>Simplicity: {calc.simplicity}</div>
