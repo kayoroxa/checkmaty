@@ -60,14 +60,14 @@ const TodoItem = ({ todo, onToggle }: { todo: StepTask; onToggle: any }) => {
           <section className="flex gap-2">
             <div
               className="flex gap-2"
-              style={{ opacity: getOpacity(todo.simplicity) }}
+              style={{ opacity: getOpacity(todo.simplicity || 0) }}
             >
               <FaBolt size={20} className="fill-blue-400 -mr-2" />
               <p>{todo.simplicity === undefined ? 0 : todo.simplicity}</p>
             </div>
             <div
               className="flex gap-2"
-              style={{ opacity: getOpacity(todo.folder?.relevance) }}
+              style={{ opacity: getOpacity(todo.folder?.relevance || 0) }}
             >
               <FaBullseye size={20} className="fill-yellow-400 -mr-1" />
               <p>
@@ -78,7 +78,7 @@ const TodoItem = ({ todo, onToggle }: { todo: StepTask; onToggle: any }) => {
             </div>
             <div
               className="flex gap-2"
-              style={{ opacity: getOpacity(todo.folder?.urgency) }}
+              style={{ opacity: getOpacity(todo.folder?.urgency || 0) }}
             >
               <FaFire size={20} className="fill-red-400 -mr-1" />
               <p>
