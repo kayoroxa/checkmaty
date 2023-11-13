@@ -119,7 +119,7 @@ export default function WrapperTaskModal({
               data={{
                 title: 'relevance',
                 label: 'relevance',
-                value: task.relevance,
+                value: task.relevance || 0,
               }}
               onChange={newData => {
                 if (onChange) {

@@ -1,11 +1,11 @@
 import { create } from 'zustand'
 import { queryClient } from '../pages/_app'
-import { _Folder } from '../utils/types/_Folder'
+import { Folder } from '../utils/types/_Folder'
 
 interface MyState {
-  folderSelected: null | _Folder
-  setFolderSelected: (folder: _Folder | null) => void
-  setFolderIdSelected: (id: number) => void
+  folderSelected: null | Folder
+  setFolderSelected: (folder: Folder | null) => void
+  setFolderIdSelected: (id: Folder['id']) => void
 }
 
 export const useFolderStore = create<MyState>()((set, get) => ({
@@ -14,9 +14,9 @@ export const useFolderStore = create<MyState>()((set, get) => ({
     set({ folderSelected: folder })
   },
 
-  setFolderIdSelected: (id: number) => {
+  setFolderIdSelected: id => {
     const folders =
-      (queryClient.getQueryState(['folders'])?.data as _Folder[]) || []
+      (queryClient.getQueryState(['folders'])?.data as Folder[]) || []
     const folderSelected = folders.find(folder => folder.id === id)
     set({ folderSelected })
   },
