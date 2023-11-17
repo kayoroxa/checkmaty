@@ -8,7 +8,7 @@ const axiosApi = axios.create({
 })
 
 const axiosNextApi = axios.create({
-  baseURL: 'http://localhost:3010/api',
+  baseURL: '/api',
   // headers: {
   //   Authorization: 'Bearer ' + localStorage.getItem('token'),
   // },
