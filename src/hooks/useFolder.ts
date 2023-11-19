@@ -100,6 +100,35 @@ export const useFolder = (id?: Type['id']) => {
   )
 
   const {
+    mutate: duplicateFolder,
+    isLoading: isDuplicateFolderLoading,
+    isError: isDuplicateFolderError,
+    error: duplicateFolderError,
+  } = useMutation(
+    async (folderId: Folder['id']) => {
+      const response = await fetch(`/api/folders/${folderId}/duplicate`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+
+      if (!response.ok) {
+        throw new Error('Falha ao duplicar a pasta')
+      }
+
+      return response.json()
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(['folders'])
+        queryClient.invalidateQueries(['tasks'])
+        queryClient.invalidateQueries(['stepTasks'])
+      },
+    }
+  )
+
+  const {
     mutate: createStepTask,
     isLoading: isCreateStepTaskLoading,
     isError: isCreateStepTaskError,
@@ -139,5 +168,9 @@ export const useFolder = (id?: Type['id']) => {
     isStepTasksLoading,
     isStepTasksError,
     stepTasksError,
+    duplicateFolder,
+    isDuplicateFolderLoading,
+    isDuplicateFolderError,
+    duplicateFolderError,
   }
 }

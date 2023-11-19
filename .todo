@@ -2,18 +2,18 @@
 ✔ update toggle done "db" @done(23-04-30 22:00)
 ✔ mudar nome @done(23-05-01 20:45)
 ✔ criar task @done(23-05-03 19:34)
-☐ colocar score do dia pra cada trindade ( mostrar porcentagem feita ) e o score total
-☐ resolver o problema de subtask
+✔ colocar score do dia pra cada trindade ( mostrar porcentagem feita ) e o score total @done(23-11-19 02:00)
+✔ resolver o problema de subtask @done(23-11-19 02:00)
 
-☐ não perder algo q eu deveria perder
+✔ não perder algo q eu deveria perder @done(23-11-19 02:01)
   task main não aparecer e sim as subtasks
   a trindade vai ser escolhida para a task main, e no dash board a proxima sub task vai aparecer com a trindade do pai - a simplicidade ( enquanto a simplicidade, cada subtask tem a sua )
   2 tipos de tasks 1 que espera pela outra. mei mé: ou pelo sort pelo score
   task q espera pela outra assim que 1 task for feita a que necessita dela aparece
   mais de 2 nivel de subtasks identadas é projeto
   subtask n ter button check no dashboard, pra forçar abrir e ter uma visão macro e ter as proximas
-☐ ver de forma visivel que essas subtasks estão em algum project
-☐ quando clicar em uma "subtask" vai ver o pai e todas as subtasks envolvidas
+✔ ver de forma visivel que essas subtasks estão em algum project @done(23-11-19 02:00)
+✔ quando clicar em uma "subtask" vai ver o pai e todas as subtasks envolvidas @done(23-11-19 02:00)
 ☐ criar metas
 ex: aposentadoria: tag de tarefas feitas 100 #videos postados, 50 #automatização, vai pegar a media e dizer qnt porcento falta pra meta
 ☐ colocar contagem de tempo e que horas vai largar ( numa sessão separada )
@@ -23,6 +23,10 @@ ex: aposentadoria: tag de tarefas feitas 100 #videos postados, 50 #automatizaç�
 
 
 
+☐ objetivos semanais
+☐ objetivos mensais
+☐ tag % automatica
+☐ tasks com % de feito
 
 
 
