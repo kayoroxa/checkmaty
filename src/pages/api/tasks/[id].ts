@@ -26,6 +26,15 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       if (!data) return res.status(300).json({ error: 'Task not found' })
       res.status(200).json(data)
     }
+    if (req.method === 'DELETE') {
+      const data = await prisma.task.delete({
+        where: {
+          id,
+        },
+      })
+
+      res.status(200).json(data)
+    }
   } catch (error: any) {
     res.status(500).json({ error: error.message })
   }

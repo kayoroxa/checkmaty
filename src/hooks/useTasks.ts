@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from 'react-query'
 import { queryClient } from '../pages/_app'
 import { useTaskStore } from '../store/useTaskStore'
-import { axiosApi, axiosNextApi } from '../utils/axiosApi'
+import { axiosNextApi } from '../utils/axiosApi'
 import { Task, TaskCreate } from '../utils/types/_Task'
 
 function get(url: string, user_id: string, key: string | string[]) {
@@ -51,7 +51,7 @@ export const useTasks = (user_id: string, options?: Partial<Task>) => {
     error: createTaskError,
   } = useMutation(
     async (newTask: TaskCreate) => {
-      const { data } = await axiosApi.post<Task>('/tasks', newTask)
+      const { data } = await axiosNextApi.post<Task>('/tasks', newTask)
       return data
     },
     {
@@ -108,7 +108,7 @@ export const useTasks = (user_id: string, options?: Partial<Task>) => {
     error: deleteTaskError,
   } = useMutation(
     async (taskId: string) => {
-      const { data } = await axiosApi.delete(`/tasks/${taskId}`)
+      const { data } = await axiosNextApi.delete(`/tasks/${taskId}`)
       return data
     },
     {
