@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { IoDuplicateOutline } from 'react-icons/io5'
 import DoneButton from '../atoms/DoneButton'
 import { useTasks } from '../hooks/useTasks'
 import { queryClient } from '../pages/_app'
@@ -9,9 +10,25 @@ import { Project } from '../utils/types/_Project'
 import { Task } from '../utils/types/_Task'
 
 import { FaBolt, FaBullseye, FaFire } from 'react-icons/fa'
+import SimpleButton from '../atoms/SimpleButton'
+import { useFolder } from '../hooks/useFolder'
 import { useFolderStore } from '../store/useFolderStore'
 
 const getOpacity = (point: number | undefined) => (point ? point / 10 : 0)
+
+function getEmoji(text: string | undefined) {
+  if (!text) return
+  const emoji = text
+    .match(/[^.\w\s~ç,?;\/\*\-+\[\]!,áéíóúãõâêîôû]+/gi)
+    ?.join('')
+  return emoji
+}
+
+function removeEmoji(text: string | undefined) {
+  if (!text) return text
+
+  return text.replace(/[^.\w\s~ç,?;\/\*\-+\[\]!,áéíóúãõâêîôû]+/gi, '')
+}
 
 async function updateTodo(
   id: number,
@@ -23,6 +40,7 @@ async function updateTodo(
 
 const TodoItem = ({ todo, onToggle }: { todo: Task; onToggle: any }) => {
   const { updateTask } = useTasks('64de7201df61c3c518e7a83b')
+  const { duplicateFolder } = useFolder('64de7201df61c3c518e7a83b')
   const router = useRouter()
   const pathname = router.pathname
 
@@ -60,7 +78,7 @@ const TodoItem = ({ todo, onToggle }: { todo: Task; onToggle: any }) => {
 
   return (
     <div
-      className="flex items-start  hover:bg-blue-50 px-4 dark:hover:bg-slate-700  min-w-[400px] rounded-2xl dark:bg-slate-700/80 relative ml-6 hover:cursor-pointer"
+      className="flex items-start  hover:bg-blue-50 px-4 dark:hover:bg-slate-700  min-w-[400px] rounded-2xl dark:bg-slate-700/80 relative ml-6 hover:cursor-pointer group"
       onClick={() => {
         addTaskSelectedHistoric(todo)
         if (todo.folder) {
@@ -70,7 +88,19 @@ const TodoItem = ({ todo, onToggle }: { todo: Task; onToggle: any }) => {
         }
       }}
     >
-      <section className="h-full my-auto flex items-center justify-center">
+      <div className="absolute top-0 right-0 opacity-0 group-hover:opacity-100 py-2 px-4">
+        <SimpleButton
+          onClick={async e => {
+            e.stopPropagation()
+            if (todo.folder_id) {
+              duplicateFolder(todo.folder_id)
+            }
+          }}
+          icon={<IoDuplicateOutline />}
+          title=""
+        />
+      </div>
+      <section className="h-full my-auto flex items-center justify-center ">
         {todo.id && (
           <DoneButton
             done={todoDone || false}
@@ -92,7 +122,9 @@ const TodoItem = ({ todo, onToggle }: { todo: Task; onToggle: any }) => {
             todoDone ? 'line-through' : ''
           }`}
         >
-          {todo.title}
+          {getEmoji(todo.folder?.title)
+            ? getEmoji(todo.folder?.title) + ' ' + todo.title
+            : todo.title}
         </div>
         <div className="flex gap-5">
           {todo?.description && (
@@ -146,7 +178,7 @@ const TodoItem = ({ todo, onToggle }: { todo: Task; onToggle: any }) => {
                   : myProject?.name}
               </Link>
             )}
-            {todo?.folder && <div>📁 {todo.folder.title}</div>}
+            {todo?.folder && <div>📁 {removeEmoji(todo.folder.title)}</div>}
           </section>
         </footer>
       </section>
