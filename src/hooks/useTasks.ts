@@ -2,6 +2,7 @@ import { useMutation, useQuery } from 'react-query'
 import { queryClient } from '../pages/_app'
 import { useTaskStore } from '../store/useTaskStore'
 import { axiosNextApi } from '../utils/axiosApi'
+import { StepTask } from '../utils/types/_StepTask'
 import { Task, TaskCreate } from '../utils/types/_Task'
 
 function get(url: string, user_id: string, key: string | string[]) {
@@ -84,11 +85,60 @@ export const useTasks = (user_id: string, options?: Partial<Task>) => {
     isError: isUpdateTaskError,
     error: updateTaskError,
   } = useMutation(fetchUpdate, {
-    onSuccess: (task, { updatedTask }) => {
+    onMutate: async updateData => {
+      await queryClient.cancelQueries('tasks')
+      await queryClient.cancelQueries(['stepTasks'])
+
+      const previousTasks = queryClient.getQueryData<Task[]>('tasks')
+      const previousStepTasks =
+        queryClient.getQueryData<StepTask[]>('stepTasks')
+
+      queryClient.setQueryData('tasks', (oldTasks: Task[] | undefined) => {
+        if (!oldTasks) return []
+        const newTasks = oldTasks.map(task => {
+          if (task.id === updateData.id) {
+            const newTask = {
+              ...task,
+              ...updateData.updatedTask,
+              doneDate: new Date(),
+            }
+            return newTask
+          }
+          return task
+        })
+        return newTasks
+      })
+
+      queryClient.setQueryData(
+        ['stepTasks'],
+        (oldStepTasks: StepTask[] | undefined) => {
+          if (!oldStepTasks) return []
+          const newStepTasks = oldStepTasks.map((stepTask: StepTask) => {
+            if (stepTask.id === updateData.id) {
+              const newTask = {
+                ...stepTask,
+                ...updateData.updatedTask,
+                doneDate: new Date(),
+              }
+              return newTask
+            }
+            return stepTask
+          })
+          return newStepTasks
+        }
+      )
+
+      return { previousTasks, previousStepTasks }
+    },
+    onError: (_err, _updatedTask, context) => {
+      queryClient.setQueryData('tasks', context?.previousTasks)
+      queryClient.setQueryData(['stepTasks'], context?.previousStepTasks)
+    },
+    onSettled: (task, _error, _variable, _context) => {
       const isSubTask = typeof task?.parentId === 'string'
 
       if (isSubTask) {
-        if (updatedTask.inMainView === undefined && !task.inMainView) {
+        if (task.inMainView === undefined && !task.inMainView) {
           queryClient.invalidateQueries(['tasks', `parentId=${task.parentId}`])
         } else {
           queryClient.invalidateQueries(['tasks', `parentId=${task.parentId}`])
@@ -99,6 +149,34 @@ export const useTasks = (user_id: string, options?: Partial<Task>) => {
         queryClient.invalidateQueries(['stepTasks'])
       }
     },
+    // onSuccess: (task, { updatedTask }) => {
+    //   console.log('olá new', task)
+    //   // const tasks = queryClient.getQueryData<Task[]>('tasks')
+    //   // const stepTasks = queryClient.getQueryData<StepTask[]>('stepTasks')
+    //   // console.log(
+    //   //   'new-morph',
+    //   //   tasks?.find(task => task.id === '6559b3df52f8145b03c00dab')
+    //   // )
+    //   // console.log(
+    //   //   'new-morph-step',
+    //   //   stepTasks?.find(task => task.id === '6559b3df52f8145b03c00dab')
+    //   // )
+    // },
+    // onSuccess: (task, { updatedTask }) => {
+    //   const isSubTask = typeof task?.parentId === 'string'
+
+    //   if (isSubTask) {
+    //     if (updatedTask.inMainView === undefined && !task.inMainView) {
+    //       queryClient.invalidateQueries(['tasks', `parentId=${task.parentId}`])
+    //     } else {
+    //       queryClient.invalidateQueries(['tasks', `parentId=${task.parentId}`])
+    //       queryClient.invalidateQueries('tasks')
+    //     }
+    //   } else {
+    //     queryClient.invalidateQueries('tasks')
+    //     queryClient.invalidateQueries(['stepTasks'])
+    //   }
+    // },
   })
 
   const {
