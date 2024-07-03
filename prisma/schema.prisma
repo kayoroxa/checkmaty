@@ -76,6 +76,16 @@ model Task {
   updatedAt DateTime @updatedAt
 }
 
+model Habit {
+  id         String @id @default(auto()) @map("_id") @db.ObjectId
+  title      String
+  loopPoint  Int
+  loopMax    Int
+  relevance  Int?
+  simplicity Int?
+  urgency    Int?
+}
+
 model Folder {
   id              String   @id @default(auto()) @map("_id") @db.ObjectId
   title           String
