@@ -15,6 +15,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
       res.status(200).json(data)
     }
+
     if (req.method === 'PATCH') {
       //DateTime UTC format
       const data = await prisma.task.update({

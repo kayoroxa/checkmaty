@@ -39,7 +39,9 @@ async function updateTodo(
 }
 
 const TodoItem = ({ todo, onToggle }: { todo: Task; onToggle: any }) => {
-  const { updateTask } = useTasks('64de7201df61c3c518e7a83b')
+  const { updateTask: _updateTask, isUpdateTaskLoading } = useTasks(
+    '64de7201df61c3c518e7a83b'
+  )
   const { duplicateFolder } = useFolder('64de7201df61c3c518e7a83b')
   const router = useRouter()
   const pathname = router.pathname
@@ -58,7 +60,7 @@ const TodoItem = ({ todo, onToggle }: { todo: Task; onToggle: any }) => {
       updateData.updatedTask.doneDate = new Date()
       // updateData.updatedTask.doneDate = new Date().getTime()
     }
-    updateTask(updateData)
+    _updateTask(updateData)
   }
 
   const projects =
@@ -75,6 +77,8 @@ const TodoItem = ({ todo, onToggle }: { todo: Task; onToggle: any }) => {
     todo.doneDate && todo.is_recurring && todo.done
       ? new Date(todo.doneDate) === new Date()
       : todo.done
+
+  // if (isUpdateTaskLoading) return null // hide todo when loading
 
   return (
     <div
@@ -103,6 +107,7 @@ const TodoItem = ({ todo, onToggle }: { todo: Task; onToggle: any }) => {
       <section className="h-full my-auto flex items-center justify-center ">
         {todo.id && (
           <DoneButton
+            disabled={isUpdateTaskLoading}
             done={todoDone || false}
             onClick={event => {
               event.stopPropagation()

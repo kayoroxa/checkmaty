@@ -3,9 +3,11 @@ import { MdDone } from 'react-icons/md'
 export default function DoneButton({
   done,
   onClick,
+  disabled = false,
 }: {
   done: boolean
   onClick?: (e: any) => void
+  disabled?: boolean
 }) {
   return (
     <button
@@ -13,6 +15,7 @@ export default function DoneButton({
         done ? 'bg-gray-400' : 'border-2 border-gray-400 dark:bg-slate-700/80'
       } hover:border-gray-300  transition-colors duration-200 flex items-center justify-center`}
       onClick={e => onClick && onClick(e)}
+      disabled={disabled}
     >
       {done && <MdDone size={13} color="white" />}
     </button>
